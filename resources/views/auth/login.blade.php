@@ -116,7 +116,7 @@
                             @endif
 
                             <div class="form-group">
-                                <input id="username" name="username" type="text" class="form-control" v-model="email" required autofocus>
+                                <input id="email" name="email" type="text" class="form-control" v-model="email" required autofocus>
                                 <small class="text-muted">Email</small>
                             </div>
 

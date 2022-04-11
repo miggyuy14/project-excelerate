@@ -19,11 +19,11 @@ class CreateTicketsTable extends Migration
             $table->longText('description');
             $table->integer('user_id');
             $table->integer('zone_id');
-            $table->string('or_no');
-            $table->integer('amount');
+            $table->string('or_no')->nullable();
+            $table->integer('amount')->nullable();
             $table->integer('status_id');
             $table->integer('approved_by')->nullable();
-            $table->timestamp('approved_at');
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }

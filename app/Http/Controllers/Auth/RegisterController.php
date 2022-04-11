@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -82,6 +83,8 @@ class RegisterController extends Controller
             'occupation' => $data['occupation'],
             'household_count' => $data['household'],
         ]);
+
+        $user->attachRole(1);
 
         return $user;
     }
