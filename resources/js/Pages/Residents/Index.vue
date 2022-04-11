@@ -15,19 +15,20 @@
                     :sort-orders="sortOrders"
                     :sort-key="sortKey"
                 >
-                        <tbody class="mb-10 items-center">
+                        <tbody class="">
+
                             <tr v-for="ticket in this.$page.props.tickets.data" :key="ticket.id">
-                            <td class="border-b px-4 py-2">
+                            <td class="border-b text-center">
                                 <!-- <Link>{{ ticket.id }}</Link> -->
                                 <Link @click="showAdmin(ticket.id)">{{ ticket.id }}</Link>
                             </td>
-                            <td class="border-b px-4 py-2">{{ ticket.request_type }}</td>
-                            <td class="border-b px-4 py-2">{{ ticket.description }}</td>
-                            <td class="border-b px-4 py-2">Zone {{ ticket.zone_id }}</td>
-                            <td class="border-b px-4 py-2">{{ ticket.or_no }}</td>
-                            <td class="border-b px-4 py-2">{{ ticket.amount }}</td>
-                            <td class="border-b px-4 py-2">{{ ticket.status.name }}</td>
-                            <td class="border-b px-4 py-2">{{ ticket.requestor.profile.full_name }}</td>
+                            <td class="border-b text-center">{{ ticket.request_type }}</td>
+                            <td class="border-b text-center">{{ ticket.description }}</td>
+                            <td class="border-b text-center">Zone {{ ticket.zone_id }}</td>
+                            <td class="border-b text-center">{{ ticket.or_no }}</td>
+                            <td class="border-b text-center">{{ ticket.amount }}</td>
+                            <td class="border-b text-center">{{ ticket.status.name }}</td>
+                            <td class="border-b text-center">{{ ticket.requestor.profile.full_name }}</td>
                             </tr>
                         </tbody>
                     </datatable>
@@ -76,16 +77,16 @@ export default {
     data(){
         let sortOrders = {};
         let columns = [
-            { name: "id", label: "ID", class: "w-1/4 px-4 py-2", isSortable: true },
-            { name: "request type", label: "Request Type", class: "w-1/4 px-4 py-2", isSortable: true },
-            { name: "Description", label: "Description", class: "w-1/8 px-4 py-2", isSortable: true,
+            { name: "id", label: "ID", class: "p-4", isSortable: false },
+            { name: "request type", label: "Request Type", class: "p-4", isSortable: false },
+            { name: "Description", label: "Description", class: "p-4", isSortable: false,
                 isSmall: true },
-            { name: "Zone ID", label: "Zone ID", class: "w-1/8 px-4 py-2", isSortable: true,
+            { name: "Zone ID", label: "Zone ID", class: "p-4", isSortable: false,
                 isSmall: true },
-            { name: "OR No", label: "OR No", class: "w-1/4 px-4 py-2", isSortable: true },
-            { name: "Amount", label: "Amount", class: "w-1/4 px-4 py-2", isSortable: true },
-            { name: "Status", label: "Status", class: "w-1/4 px-4 py-2", isSortable: true },
-            { name: "owner", label: "Owner", class: "w-1/4 px-4 py-2", isSortable: true },
+            { name: "OR No", label: "OR No", class: "p-4", isSortable: false },
+            { name: "Amount", label: "Amount", class: "p-4", isSortable: false },
+            { name: "Status", label: "Status", class: "p-4", isSortable: false },
+            { name: "owner", label: "Owner", class: "p-4", isSortable: false },
         ];
 
         columns.forEach((column) => {

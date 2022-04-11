@@ -1,6 +1,6 @@
 <template>
     <table class="table table-sm table-hover table__custom">
-                <thead class="text-left">
+                <thead class="text-center">
             <tr>
                 <th scope="col" v-for="(column, index) in columns"
                     :key="column.name"
