@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>COMPASS</title>
+        <title>{{ config('app.name', 'Laravel') }} - Login</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -103,7 +103,7 @@
                     <div class="inner-form">
 
                         <p class="mb-0">Log in to continue to:</p>
-                        <h3 class="display mt-2 mb-4">{{ config('app.name', 'IngramMicroGBS') }}</h3>
+                        <h3 class="display mt-2 mb-4">{{ config('app.name', 'Project Excelerate') }}</h3>
                         <!-- <h3 class="display mt-2 mb-4 text-center">Scorecard v2.0</h3> -->
 
                         <form action="{{ route('login') }}" method="POST">
@@ -117,7 +117,7 @@
 
                             <div class="form-group">
                                 <input id="username" name="username" type="text" class="form-control" v-model="email" required autofocus>
-                                <small class="text-muted">Username</small>
+                                <small class="text-muted">Email</small>
                             </div>
 
                             <div class="form-group">

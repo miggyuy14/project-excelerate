@@ -10,7 +10,7 @@ import Vue from 'vue'
 
 import { createInertiaApp } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
-
+Vue.mixin({ methods: { route: window.route } })
 InertiaProgress.init()
 
  createInertiaApp({

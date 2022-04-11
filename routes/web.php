@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PagesController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/login', [PagesController::class, 'login'])->name('login');
+Route::get('/register', [PagesController::class, 'register'])->name('register');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PagesController::class, 'welcome'])->name('welcome');
 
 Auth::routes();
 
