@@ -101,6 +101,9 @@
                         <li class="nav-item" v-if="$page.props.auth.user !== null">
                             <Link class="nav-link" :href="route('ticket.index')">Requests</Link>
                         </li>
+                        <li class="nav-item" v-if="$page.props.auth.user !== null && isAdmin || isStaff || isZoneLeader">
+                            <Link class="nav-link" :href="route('admin.users.view')">Admin</Link>
+                        </li>
                         <li class="nav-item" v-if="$page.props.auth.user == null">
                             <a class="nav-link" :href="route('login')">Login</a>
                         </li>
@@ -140,8 +143,29 @@ export default {
         }
     },
     computed: {
-        isAdmin(){
-            if(this.$page.props.auth.roles.includes('admin')){
+        isAdmin() {
+                if(this.$page.props.auth.roles.includes('admin')){
+                    return true;
+                }else{
+                    return false;
+                }
+            },
+        isStaff() {
+            if(this.$page.props.auth.roles.includes('staff')){
+                return true;
+            }else{
+                return false;
+            }
+            },
+        isZoneLeader() {
+            if(this.$page.props.auth.roles.includes('zone_leader')){
+                return true;
+            }else{
+                return false;
+            }
+        },
+        isResident() {
+            if(this.$page.props.auth.roles.includes('resident')){
                 return true;
             }else{
                 return false;

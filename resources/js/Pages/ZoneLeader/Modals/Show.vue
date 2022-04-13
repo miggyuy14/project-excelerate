@@ -3,7 +3,7 @@
         <form @submit.prevent="submit">
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">New Request </h5>
+                <h5 class="card-title">{{ form.status }} Request </h5>
                 <div class="form-row mb-3">
                     <div class="form-group">
                         <h5 for="Tower">Request Type</h5>
@@ -18,14 +18,15 @@
                     </div>
                     <div class="form-group">
                         <h5 for="Title">OR Number</h5>
-                            <input class="container-fluid" v-model="form.or_no" type="text">
+                            <input v-if="form.status == 'pending'" class="container-fluid" v-model="form.or_no" type="text">
+                            <p v-else>{{form.ticket.or_no}}</p>
 
                         <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
                     <div class="form-group">
                         <h5 for="Title">Amount to pay</h5>
-                            <input class="container-fluid" v-model="form.amount" type="number">
-
+                            <input v-if="form.status == 'pending'" class="container-fluid" v-model="form.amount" type="number">
+                            <p v-else>{{form.ticket.amount}}.00</p>
                         <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
                 </div>
@@ -50,13 +51,13 @@
                         <p v-show="isClosed">Closed Date: {{writeOff.closed_at}} By: {{writeOff.closer}}</p>
                     </div> -->
                     <div>
-                        <button class="btn btn-warning" @click="disapprove()" :disabled="loading['submit']">
+                        <button class="btn btn-warning" v-if="form.status == 'pending'" @click="disapprove()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Disapprove</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Updating...</span>
                         </button>
 
                         <!-- <button v-else-if="(isUpserting && this.levels.length > 0) || (isUpserting && isSmallDifferences && matrixLoaded)" class="btn btn-primary" type="submit" :disabled="loading['submit']"> -->
-                            <button class="btn btn-success" @click="approve()" :disabled="loading['submit']">
+                            <button class="btn btn-success" v-if="form.status == 'pending'" @click="approve()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Approve</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
                         </button>
@@ -129,7 +130,8 @@ export default {
                 or_no: '',
                 amount: '',
                 requestor: '',
-
+                status: '',
+                ticket: '',
             },
 
             loading: {
@@ -142,9 +144,11 @@ export default {
     methods: {
         async getTicketDetails() {
             const response = await axios.get(`/api/ticket/${this.id}`);
+            this.form.ticket = response.data;
             this.form.request_type = response.data.request_type;
             this.form.description = response.data.description;
             this.form.requestor = response.data.requestor.profile;
+            this.form.status = response.data.status.name;
             console.log(this.form.requestor);
         },
         // dropzoneProcessing() {

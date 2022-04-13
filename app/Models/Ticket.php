@@ -20,4 +20,15 @@ class Ticket extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function approver()
+    {
+        return $this->hasOne(User::class, 'id', 'approved_by');
+    }
+
+    // unsure if needed
+    // public function zone(Type $var = null)
+    // {
+    //     # code...
+    // }
 }

@@ -13,6 +13,9 @@ import 'vue-select/dist/vue-select.css';
 import vSelect from 'vue-select';
 Vue.component('v-select', vSelect);
 
+//import moment
+import moment from 'moment';
+
 // Import modals
 import VModal from 'vue-js-modal';
 Vue.use(VModal, {
@@ -34,8 +37,18 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
+//import Inertia
 import { createInertiaApp } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
+
+//create custom filter
+Vue.filter('formatDate', function(value) {
+    if (value) {
+        return moment(String(value)).format('MMMM DD YYYY')
+    }
+});
+
+//use Ziggy
 Vue.mixin({ methods: { route: window.route } })
 InertiaProgress.init()
 

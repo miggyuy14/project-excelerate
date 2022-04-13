@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUserManagementController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Auth;
@@ -31,5 +32,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/store', [TicketController::class, 'store'])->name('ticket.store');
             Route::put('/{id}/approve', [TicketController::class, 'approve']);
             Route::put('/{id}/disapprove', [TicketController::class, 'disapprove']);
+        });
+
+        Route::middleware(['role:admin|zone_leader|staff'])->group(function() {
+            //admin routes
+            Route::group(['prefix' => 'admin'], function () {
+                Route::get('/users', [AdminUserManagementController::class, 'index'])->name('admin.users.view');
+                Route::get('/data', [AdminDataManagementController::class, 'index'])->name('admin.data.view');
+            });
         });
 });

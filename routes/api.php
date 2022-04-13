@@ -24,3 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/types', [RequestTypeController::class, 'index']);
 
 Route::get('/ticket/{id}', [TicketController::class, 'show']);
+
+Route::get('/test', function (){
+    $data = User::whereHas('profile', function ($query) {
+        $query->where('zone_id', 1);
+    })->get();
+    return $data;
+});

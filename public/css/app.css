@@ -23176,6 +23176,82 @@ hr.divider-light {
     color: #f4623a;
   }
 }
+#secondaryNav {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  background-color: #000;
+  transition: background-color 0.2s ease;
+}
+
+#secondaryNav .navbar-brand {
+  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 700;
+  color: #000;
+}
+
+#secondaryNav .navbar-nav .nav-item .nav-link {
+  color: #000;
+  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.75rem 0;
+}
+
+#secondaryNav .navbar-nav .nav-item .nav-link:hover, #secondaryNav .navbar-nav .nav-item .nav-link:active {
+  color: #f4623a;
+}
+
+#secondaryNav .navbar-nav .nav-item .nav-link.active {
+  color: #f4623a !important;
+}
+
+@media (min-width: 992px) {
+  #secondaryNav {
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  #secondaryNav .navbar-brand {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  #secondaryNav .navbar-brand:hover {
+    color: #fff;
+  }
+
+  #secondaryNav .navbar-nav .nav-item .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0 1rem;
+  }
+
+  #secondaryNav .navbar-nav .nav-item .nav-link:hover {
+    color: #fff;
+  }
+
+  #secondaryNav .navbar-nav .nav-item:last-child .nav-link {
+    padding-right: 0;
+  }
+
+  #secondaryNav.navbar-shrink {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+  }
+
+  #secondaryNav.navbar-shrink .navbar-brand {
+    color: #212529;
+  }
+
+  #secondaryNav.navbar-shrink .navbar-brand:hover {
+    color: #f4623a;
+  }
+
+  #secondaryNav.navbar-shrink .navbar-nav .nav-item .nav-link {
+    color: #212529;
+  }
+
+  #secondaryNav.navbar-shrink .navbar-nav .nav-item .nav-link:hover {
+    color: #f4623a;
+  }
+}
 header.masthead {
   padding-top: 10rem;
   padding-bottom: 5.5rem;

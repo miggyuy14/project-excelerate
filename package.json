@@ -28,6 +28,7 @@
         "@inertiajs/inertia-vue": "^0.8.0",
         "@inertiajs/progress": "^0.2.7",
         "bootstrap-vue": "^2.21.2",
+        "moment": "^2.29.2",
         "vue-js-modal": "^2.0.1",
         "vue-select": "^3.18.3",
         "vuejs-paginate": "^2.1.0"
