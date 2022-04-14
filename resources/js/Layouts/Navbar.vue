@@ -102,7 +102,7 @@
                             <Link class="nav-link" :href="route('ticket.index')">Requests</Link>
                         </li>
                         <li class="nav-item" v-if="$page.props.auth.user !== null && isAdmin || isStaff || isZoneLeader">
-                            <Link class="nav-link" :href="route('admin.users.view')">Admin</Link>
+                            <Link class="nav-link" :href="route('admin.users.view')" :data="{  tab: 'resident', page: 1 }">Admin</Link>
                         </li>
                         <li class="nav-item" v-if="$page.props.auth.user == null">
                             <a class="nav-link" :href="route('login')">Login</a>

@@ -90,7 +90,7 @@ class TicketController extends Controller
      */
     public function show(Request $request)
     {
-        $ticket = Ticket::with(['status', 'requestor.profile'])->find($request->id);
+        $ticket = Ticket::with(['status', 'requestor.profile', 'approver.profile'])->find($request->id);
         // dd($ticket);
         return $ticket;
 
@@ -139,6 +139,23 @@ class TicketController extends Controller
             $ticket->approved_by = Auth::id();
             $ticket->approved_at = Carbon::now();
             $ticket->status_id = 2;
+
+            $ticket->save();
+
+            return redirect(route('ticket.index'))->with('success', 'Ticket Approved Successfully');
+        }
+        catch (\Exception $e){
+            Log::error($e);
+
+            return redirect(route('ticket.index'))->with('error', 'Something Went Wrong Please Contact Admin');
+        }
+    }
+
+    public function disapprove(Request $request)
+    {
+        try{
+            $ticket = Ticket::find($request->id);
+            $ticket->status_id = 3;
 
             $ticket->save();
 

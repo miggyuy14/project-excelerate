@@ -1,5 +1,5 @@
 <template>
-    <Navbar>
+    <AdminLayout>
     <div class="px-5 bg-white">
         <Success :message="this.$page.props.flash.success"></Success>
         <Error :message="this.$page.props.flash.error"></Error>
@@ -23,12 +23,18 @@
                                 <!-- <Link>{{ ticket.id }}</Link> -->
                                 <Link @click="showAdmin(data.id)">{{ data.id }}</Link>
                             </td>
-                            <td class="border-b text-center">{{ data.profile[0].full_name }}</td>
-                            <td class="border-b text-center">{{ data.profile[0].address }}</td>
-                            <td class="border-b text-center">Zone {{ data.profile[0].zone_id }}</td>
-                            <td class="border-b text-center">{{ data.profile[0].occupation }}</td>
-                            <td class="border-b text-center">{{ data.profile[0].gender }}</td>
-                            <td class="border-b text-center">{{ data.profile[0].created_at | formatDate }}</td>
+                            <td class="border-b text-center">{{ data.profile.full_name }}</td>
+                            <td class="border-b text-center">{{ data.profile.address }}</td>
+                            <td class="border-b text-center">Zone {{ data.profile.zone_id }}</td>
+                            <td class="border-b text-center">{{ data.profile.occupation }}</td>
+                            <td class="border-b text-center">{{ data.profile.gender }}</td>
+                            <td class="border-b text-center">{{ data.profile.created_at | formatDate }}</td>
+                            <td class="border-b text-center">
+                                <button v-if="data.active == 0 && data.user_roles.includes('resident')" class="btn btn-sm btn-primary">Approve</button>
+                                <button v-if="data.active == 1 && data.user_roles.includes('resident')" class="btn btn-sm btn-danger">Deactivate</button>
+                                <button v-if="data.user_roles.includes('staff') || data.user_roles.includes('zone_leader')" class="btn btn-sm btn-danger">remove</button>
+                            </td>
+
                             </tr>
                         </tbody>
                     </datatable>
@@ -57,17 +63,18 @@
                 </paginate>
             </div>
     </div>
-    </Navbar>
+    </AdminLayout>
 </template>
 <script>
 import Datatable from '@/components/partials/Datatable.vue'
-import Navbar from '@/Layouts/TrueNavbar'
+import AdminLayout from '@/Layouts/AdminLayout'
 import Success from '@/Partials/Success.vue';
 import Error from '@/Partials/Error.vue';
+import ShowAdmin from './Show.vue';
 import { Link } from "@inertiajs/inertia-vue";
 export default {
     name: "Documents",
-    components: { Datatable, Navbar, Link, Success, Error },
+    components: { Datatable, AdminLayout, Link, Success, Error, ShowAdmin },
     // created(){
     //     this.fetchDocuments();
     // },
@@ -84,6 +91,7 @@ export default {
             { name: "Occupation", label: "Occupation", class: "p-4", isSortable: false },
             { name: "Gender", label: "Gender", class: "p-4", isSortable: false },
             { name: "Created at", label: "Created at", class: "p-4", isSortable: false },
+            { name: "Actions", label: "Actions", class: "p-4", isSortable: false },
         ];
 
         columns.forEach((column) => {
@@ -153,30 +161,6 @@ export default {
         //     this.$inertia.delete(`/document/bulkDelete`, this.form);
         // },
 
-        create(){
-            this.$modal.show(
-                Create,
-                {
-                    id: this.form.id,
-                },
-                {
-                    height: "auto",
-                },
-            )
-        },
-
-        show() {
-            this.$modal.show(
-                Show,
-                {
-                    id: this.$page.props.tickets.data.id,
-                },
-                {
-                    height: "auto",
-                },
-            )
-        },
-
         showAdmin(id) {
             this.$modal.show(
                 ShowAdmin,
@@ -191,7 +175,7 @@ export default {
 
         changePage(page) {
             this.currentPage = page;
-            this.$inertia.get(route('tickets.index'), {
+            this.$inertia.get(route('admin.users.view'), {
                 // tab: this.tab,
                 page: this.currentPage
             })

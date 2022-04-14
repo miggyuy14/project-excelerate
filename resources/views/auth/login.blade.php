@@ -106,8 +106,10 @@
                         <h3 class="display mt-2 mb-4">{{ config('app.name', 'Project Excelerate') }}</h3>
                         <!-- <h3 class="display mt-2 mb-4 text-center">Scorecard v2.0</h3> -->
 
-                        <form action="{{ route('login') }}" method="POST">
+                        <form action="{{ route('login.auth') }}" method="POST">
                             @csrf
+
+                            <small class="text-danger">{!! session()->get('error') !!}</small>
 
                             @if($errors->any())
                                 @foreach ($errors->all() as $error)

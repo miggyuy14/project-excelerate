@@ -41,15 +41,20 @@
                     </div>
                     <div class="form-group">
                         <h5 for="Team">Zone</h5>
-                            <p>Zone {{ form.zone_id }}</p>
+                            <p>Zone {{ form.ticket.zone_id }}</p>
+                    </div>
+                    <div class="form-group">
+                        <h5 v-if="form.status == 'approved'" for="Team">Approved by</h5>
+                        <h5 v-if="form.status == 'disapproved'" for="Team">Declined by</h5>
+                            <p>{{ form.approver.full_name }}</p>
+                    </div>
+                    <div v-if="form.status == 'disapproved'" class="form-group">
+                        <h5 for="Team">Reason</h5>
+                            <p>{{ form.ticket.reason }}</p>
                     </div>
                 </div>
 
                 <div class="d-flex mt-3 mb-3 justify-content-end">
-                    <!-- <div v-if="!isUpserting">
-                        <p>Created Date: {{writeOff.created_at}} By: {{writeOff.creator}}</p>
-                        <p v-show="isClosed">Closed Date: {{writeOff.closed_at}} By: {{writeOff.closer}}</p>
-                    </div> -->
                     <div>
                         <button class="btn btn-warning" v-if="form.status == 'pending'" @click="disapprove()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Disapprove</span>
@@ -132,6 +137,7 @@ export default {
                 requestor: '',
                 status: '',
                 ticket: '',
+                approver: '',
             },
 
             loading: {
@@ -149,6 +155,7 @@ export default {
             this.form.description = response.data.description;
             this.form.requestor = response.data.requestor.profile;
             this.form.status = response.data.status.name;
+            this.form.approver = response.data.approver.profile
             console.log(this.form.requestor);
         },
         // dropzoneProcessing() {

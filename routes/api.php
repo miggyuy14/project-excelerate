@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminDataController;
 use App\Http\Controllers\RequestTypeController;
 use App\Http\Controllers\TicketController;
 use App\Models\User;
@@ -25,9 +26,12 @@ Route::get('/types', [RequestTypeController::class, 'index']);
 
 Route::get('/ticket/{id}', [TicketController::class, 'show']);
 
-Route::get('/test', function (){
-    $data = User::whereHas('profile', function ($query) {
-        $query->where('zone_id', 1);
-    })->get();
-    return $data;
-});
+// get count of data
+Route::get('/residents', [AdminDataController::class, 'residents']);
+Route::get('/brgy', [AdminDataController::class, 'brgy']);
+Route::get('/tickets', [AdminDataController::class, 'tickets']);
+Route::get('/blotters', [AdminDataController::class, 'blotters']);
+
+//get single data
+Route::get('/resident/{id}', [AdminDataController::class, 'resident']);
+Route::get('/blotter/{id}', [AdminDataController::class, 'blotter']);

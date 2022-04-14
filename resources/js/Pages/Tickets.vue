@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between">
                 <input class="shadow appearance-none border rounded py-2 px-3 mb-4 " id="search" type="text" placeholder="Search. . .">
             <div class="form-inline">
-                <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" v-if="isResident" @click="create()">Create ticket</Link>
+                <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" v-if="isResident" @click="ticket()">Create ticket</Link>
             </div>
             </div>
                  <datatable
@@ -155,7 +155,7 @@ export default {
         //     this.$inertia.delete(`/document/bulkDelete`, this.form);
         // },
 
-        create(){
+        ticket(){
             this.$modal.show(
                 Create,
                 {
@@ -189,6 +189,10 @@ export default {
                     height: "auto",
                 },
             )
+        },
+
+        blotter() {
+
         },
 
         changePage(page) {
