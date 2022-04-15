@@ -101,6 +101,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::group(['prefix' => 'inventory'], function () {
                     Route::get('/', [InventoryController::class, 'index'])->name('clinic.inventory');
                     Route::post('/', [InventoryController::class, 'store'])->name('inventory.store');
+                    Route::put('/', [InventoryController::class, 'update'])->name('inventory.update');
+                    Route::delete('/{id}', [InventoryController::class, 'destroy'])->name('inventory.delete');
                 });
             });
         });

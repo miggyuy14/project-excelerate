@@ -84,9 +84,14 @@ class InventoryController extends Controller
      * @param  \App\Models\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Inventory $inventory)
+    public function update(Request $request)
     {
-        //
+        $inventory = Inventory::find($request->id);
+
+        $inventory->item_quantity = $request->quantity;
+        $inventory->save();
+
+        return redirect()->back()->with('success', 'item updated');
     }
 
     /**
@@ -95,8 +100,12 @@ class InventoryController extends Controller
      * @param  \App\Models\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Inventory $inventory)
+    public function destroy($id)
     {
-        //
+        $inventory = Inventory::find($id);
+
+        $inventory->delete();
+
+        return redirect()->back()->with('success', 'item deleted');
     }
 }

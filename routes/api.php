@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AdminDataController;
 use App\Http\Controllers\RequestTypeController;
 use App\Http\Controllers\TicketController;
 use App\Models\Consultation;
+use App\Models\Inventory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -67,4 +68,10 @@ Route::get('/nurses', function () {
     })->get()->count();
 
     return $nurse;
+});
+
+Route::get('/inventory/{id}', function ($id) {
+    $inventory = Inventory::find($id);
+
+    return $inventory;
 });

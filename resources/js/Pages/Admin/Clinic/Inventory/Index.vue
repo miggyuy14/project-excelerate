@@ -17,14 +17,14 @@
 
                             <tr v-for="ticket in this.$page.props.data.data" :key="ticket.id">
                             <td class="border-b text-center">
-                                <Link v-if="isResident" @click="show(ticket.id)">{{ ticket.id }}</Link>
-                                <Link v-else @click="showAdmin(ticket.id)">{{ ticket.id }}</Link>
+                                <Link @click="show(ticket.id)">{{ ticket.id }}</Link>
+                                <!-- <Link v-else @click="showAdmin(ticket.id)">{{ ticket.id }}</Link> -->
                             </td>
                             <td class="border-b text-center">{{ ticket.item_name }}</td>
                             <td class="border-b text-center">{{ ticket.item_description }}</td>
                             <td class="border-b text-center">{{ ticket.item_quantity }}</td>
                             <td class="border-b text-center">
-                                <button class="btn btn-sm btn-danger">Delete</button>
+                                <button class="btn btn-sm btn-danger" @click="destroy(ticket.id)">Delete</button>
                             </td>
                             </tr>
                         </tbody>
@@ -62,6 +62,7 @@ import Navbar from '@/Layouts/ClinicLayout'
 import Success from '@/Partials/Success.vue';
 import Error from '@/Partials/Error.vue';
 import { Link } from "@inertiajs/inertia-vue";
+import Show from "@/Pages/Admin/Clinic/Inventory/Show.vue"
 export default {
     name: "Documents",
     components: { Datatable, Navbar, Link, Success, Error },
@@ -144,6 +145,8 @@ export default {
         //     this.$inertia.delete(`/document/bulkDelete`, this.form);
         // },
 
+
+
         ticket(){
             this.$modal.show(
                 Create,
@@ -156,11 +159,11 @@ export default {
             )
         },
 
-        show() {
+        show(id) {
             this.$modal.show(
                 Show,
                 {
-                    id: this.$page.props.tickets.data.id,
+                    id: id,
                 },
                 {
                     height: "auto",
@@ -180,7 +183,23 @@ export default {
             )
         },
 
-        blotter() {
+        destroy(id){
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Delete it!',
+                cancelButtonText: 'No, Not now!',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+                }).then((result) => {
+                if(result.value) {
+                    this.$inertia.delete(`/clinic/inventory/${id}`)
+                    this.$swal('Approved', 'You successfully deleted the item', 'success')
+                } else {
+                    this.$swal('Cancelled', "The Item is safe", 'info')
+                }
+                });
 
         },
 
