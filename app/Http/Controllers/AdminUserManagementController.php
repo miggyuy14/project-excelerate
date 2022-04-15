@@ -84,69 +84,65 @@ class AdminUserManagementController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function approve($id)
     {
-        //
+        $user = User::find($id);
+
+        $user->active = 1;
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Access Approved');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function deactivate($id)
     {
-        //
+        $user = User::find($id);
+
+        $user->active = 2;
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Access Deactivated');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function createLeader($id)
     {
-        //
+        $leader = User::find($id);
+
+        $leader->detachRole('resident');
+        $leader->attachRole('zone_leader');
+
+        return redirect()->back()->with('success', 'Leader successfully added');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function removeLeader($id)
     {
-        //
+        $leader = User::find($id);
+
+        $leader->detachRole('leader');
+        $leader->attachRole('resident');
+
+        return redirect()->back()->with('success', 'Leader successfully added');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function createOfficial($id)
     {
-        //
+        $official = User::find($id);
+
+        $official->detachRole('resident');
+        $official->attachRole('staff');
+
+        return redirect()->back()->with('success', 'Official successfully added');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function removeOfficial($id)
     {
-        //
+        $official = User::find($id);
+
+        $official->detachRoles();
+        $official->attachRole('resident');
+
+        return redirect()->back()->with('success', 'Role successfully removed');
     }
 }

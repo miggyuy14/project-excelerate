@@ -4,12 +4,11 @@
         <Success :message="this.$page.props.flash.success"></Success>
         <Error :message="this.$page.props.flash.error"></Error>
         <div class="container-fluid items-center justify-center px-5">
-            <h2>Users</h2>
             <div class="d-flex justify-content-between">
                 <input class="shadow appearance-none border rounded py-2 px-3 mb-4 " id="search" type="text" placeholder="Search. . .">
-            <div class="form-inline">
+            <!-- <div class="form-inline">
                 <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" v-if="isResident" @click="create()">Create ticket</Link>
-            </div>
+            </div> -->
             </div>
                  <datatable
                     :columns="columns"
@@ -30,9 +29,10 @@
                             <td class="border-b text-center">{{ data.profile.gender }}</td>
                             <td class="border-b text-center">{{ data.profile.created_at | formatDate }}</td>
                             <td class="border-b text-center">
-                                <button v-if="data.active == 0 && data.user_roles.includes('resident')" class="btn btn-sm btn-primary">Approve</button>
-                                <button v-if="data.active == 1 && data.user_roles.includes('resident')" class="btn btn-sm btn-danger">Deactivate</button>
-                                <button v-if="data.user_roles.includes('staff') || data.user_roles.includes('zone_leader')" class="btn btn-sm btn-danger">remove</button>
+                                <button v-if="data.active == 0 || data.active == 2 && data.user_roles.includes('resident')" class="btn btn-sm btn-primary" @click="approve(data.id)">Activate</button>
+                                <button v-if="data.active == 1 && data.user_roles.includes('resident')" class="btn btn-sm btn-danger" @click="deactivate(data.id)">Deactivate</button>
+                                <button v-if="tab == 'official' && data.user_roles.includes('staff') || data.user_roles.includes('admin')" @click="removeOfficial(data.id)" class="btn btn-sm btn-danger">remove</button>
+                                <button v-if="tab == 'leader' && data.user_roles.includes('staff') || data.user_roles.includes('zone_leader')" @click="removeOfficial(data.id)" class="btn btn-sm btn-danger">remove</button>
                             </td>
 
                             </tr>
@@ -160,6 +160,85 @@ export default {
         // destroy() {
         //     this.$inertia.delete(`/document/bulkDelete`, this.form);
         // },
+
+        approve(id) {
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes Approve it!',
+                cancelButtonText: 'No, Not now!',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+                }).then((result) => {
+                if(result.value) {
+                    this.$inertia.put(`/admin/user/approve/${id}`)
+                    this.$swal('Approved', 'You successfully approved this resident', 'success')
+                } else {
+                    this.$swal('Cancelled', "The resident's access is still pending", 'info')
+                }
+                });
+
+        },
+        deactivate(id) {
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes Deactivate!',
+                cancelButtonText: 'No, Not now!',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+                }).then((result) => {
+                if(result.value) {
+                    this.$inertia.put(`/admin/user/deactivate/${id}`)
+                    this.$swal('Rejected', 'You successfully deactivated this resident', 'success')
+                } else {
+                    this.$swal('Cancelled', "The resident's access is still active", 'info')
+                }
+                });
+
+        },
+
+        removeOfficial(id) {
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes Remove!',
+                cancelButtonText: 'No, Not now!',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+                }).then((result) => {
+                if(result.value) {
+                    this.$inertia.put(route('admin.official.remove', id))
+                    this.$swal('Rejected', 'You successfully deactivated this resident', 'success')
+                } else {
+                    this.$swal('Cancelled', "The resident's access is still active", 'info')
+                }
+                });
+
+        },
+
+        removeLeader(id) {
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes Remove!',
+                cancelButtonText: 'No, Not now!',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+                }).then((result) => {
+                if(result.value) {
+                    this.$inertia.put(route('admin.leader.remove', id))
+                    this.$swal('Rejected', 'You successfully deactivated this resident', 'success')
+                } else {
+                    this.$swal('Cancelled', "The resident's access is still active", 'info')
+                }
+                });
+
+        },
 
         showAdmin(id) {
             this.$modal.show(

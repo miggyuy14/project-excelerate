@@ -19,7 +19,10 @@
                     <Link class="nav-link" aria-current="page" :href="route('ticket.index')">Requests</Link>
                     </li>
                     <li class="nav-item" v-if="$page.props.auth.user !== null && !isResident">
-                    <Link class="nav-link" aria-current="page" :href="route('admin.users.view')">Admin</Link>
+                    <Link class="nav-link" aria-current="page" :href="route('admin.users.view')" :data="{  tab: 'resident', page: 1 }">Admin</Link>
+                    </li>
+                    <li class="nav-item" v-if="$page.props.auth.user !== null && !isResident || !isZoneLeader">
+                    <Link class="nav-link" aria-current="page" :href="route('clinic.index')" :data="{  tab: 'consultation', page: 1 }">Clinic</Link>
                     </li>
                     <li class="nav-item" v-if="$page.props.auth.user !== null">
                     <Link class="nav-link" aria-current="page" :href="route('logout')">Logout</Link>

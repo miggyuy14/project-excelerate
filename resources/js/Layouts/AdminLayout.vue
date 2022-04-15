@@ -101,7 +101,7 @@
             <div class="d-flex justify-content-between">
                 <h3>Admin Dashboard</h3>
                 <button class="btn btn-primary" v-if="currentTabComponent == 'blotter'" @click="Create()"> Create blotter </button>
-                <button class="btn btn-primary" v-if="currentTabComponent == 'official'" @click="officials()"> Add officials </button>
+                <button class="btn btn-primary" v-if="currentTabComponent == 'official'" @click="official()"> Add officials </button>
                 <button class="btn btn-primary" v-if="currentTabComponent == 'leader'" @click="leader()"> Add Zone Leader </button>
             </div>
                 <ul class='nav nav-tabs'>
@@ -120,9 +120,9 @@
                     <li class="nav-item">
                         <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.blotter')" :data="{ tab: 'blotter', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'blotter') ? 'active': 'text-gray-500 bg-gray-200'">Blotter</Link>
                     </li>
-                    <!-- <li class="nav-item">
-                        <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('welcome')" :data="{ tab: 'archives', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'archives') ? 'active': 'text-gray-500 bg-gray-200'">Data Management</Link>
-                    </li> -->
+                    <li class="nav-item">
+                        <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.events')" :data="{ tab: 'archives', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'archives') ? 'active': 'text-gray-500 bg-gray-200'">Events Management</Link>
+                    </li>
                  </ul>
             </div>
         </div>
@@ -136,6 +136,8 @@ import { Link } from "@inertiajs/inertia-vue";
 import Navbar from '@/Layouts/TrueNavbar'
 import axios from 'axios';
 import Create from '@/Pages/Admin/Blotter/Modals/Create'
+import officials from '@/Pages/Admin/CreateOfficial.vue'
+import leader from '@/Pages/Admin/CreateLeader.vue'
 export default {
     components: { Navbar, Link },
     props: ['search', 'country', 'process', 'tower', 'department', 'team'],
@@ -158,6 +160,7 @@ export default {
         this.getResidents();
         this.getBrgy();
         this.getTickets();
+        this.getBlotter();
     },
     computed: {
         isAdmin(){
@@ -197,6 +200,30 @@ export default {
             )
         },
 
+        official(){
+            this.$modal.show(
+                officials,
+                {
+
+                },
+                {
+                    height: "auto",
+                },
+            )
+        },
+
+        leader(){
+            this.$modal.show(
+                leader,
+                {
+
+                },
+                {
+                    height: "auto",
+                },
+            )
+        },
+
         async getResidents(){
             const response = await axios.get('/api/residents');
             this.residents = response.data;
@@ -212,15 +239,6 @@ export default {
         async getBlotter(){
             const response = await axios.get('/api/blotters');
             this.blotter = response.data;
-        },
-        /* Set the width of the side navigation to 250px */
-        openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-        },
-
-        /* Set the width of the side navigation to 0 */
-        closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
         },
     }
 }

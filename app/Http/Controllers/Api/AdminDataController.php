@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blotter;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
 class AdminDataController extends Controller
@@ -55,4 +56,23 @@ class AdminDataController extends Controller
 
         return $blotter;
     }
+
+    public function zones()
+    {
+        $zones = Zone::all();
+
+        return $zones;
+    }
+
+    public function leader()
+    {
+        $residents = User::with('profile')
+            ->whereHas('roles', function ($query) {
+                $query->where('roles.name','resident');
+            })
+            ->get();
+
+        return $residents;
+    }
+
 }

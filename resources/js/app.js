@@ -23,6 +23,11 @@ Vue.use(VModal, {
     injectModalsContainer: true,
 });
 
+// import sweetalert2
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+Vue.use(VueSweetalert2);
+
 // Import Pagination
 Vue.component('Paginate', require('vuejs-paginate'));
 

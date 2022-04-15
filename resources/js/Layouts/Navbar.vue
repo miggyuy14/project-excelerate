@@ -104,6 +104,9 @@
                         <li class="nav-item" v-if="$page.props.auth.user !== null && isAdmin || isStaff || isZoneLeader">
                             <Link class="nav-link" :href="route('admin.users.view')" :data="{  tab: 'resident', page: 1 }">Admin</Link>
                         </li>
+                        <li class="nav-item" v-if="$page.props.auth.user !== null && isAdmin || isStaff || isClinic">
+                            <Link class="nav-link" :href="route('clinic.index')" :data="{  tab: 'consultation', page: 1 }">Clinic</Link>
+                        </li>
                         <li class="nav-item" v-if="$page.props.auth.user == null">
                             <a class="nav-link" :href="route('login')">Login</a>
                         </li>
@@ -159,6 +162,13 @@ export default {
             },
         isZoneLeader() {
             if(this.$page.props.auth.roles.includes('zone_leader')){
+                return true;
+            }else{
+                return false;
+            }
+        },
+        isZClinic() {
+            if(this.$page.props.auth.roles.includes('doctor') || this.$page.props.auth.roles.includes('nurse')){
                 return true;
             }else{
                 return false;

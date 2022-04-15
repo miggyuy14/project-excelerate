@@ -21,7 +21,10 @@ class TicketController extends Controller
     {
         $user = Auth::user();
         if($user->hasRole('resident')){
-            $tickets = Ticket::with(['status', 'requestor.profile'])->where('user_id', $user->id)->paginate(10);
+            $tickets = Ticket::with(['status', 'requestor.profile'])
+                ->where('user_id', $user->id)
+                ->where('request_type', '<>','Consultation')
+                ->paginate(10);
 
             return Inertia::render('Tickets',[
                 'tickets' => $tickets,
@@ -29,13 +32,16 @@ class TicketController extends Controller
         }else if($user->hasRole('zone_leader')){
             $tickets = Ticket::with(['status', 'requestor.profile'])
                 ->where('zone_id', $user->profile[0]->zone_id)
+                ->where('request_type', '<>','Consultation')
                 ->paginate(10);
 
             return Inertia::render('Tickets',[
                 'tickets' => $tickets,
             ]);
         }else{
-            $tickets = Ticket::with(['status', 'requestor.profile'])->paginate(10);
+            $tickets = Ticket::with(['status', 'requestor.profile'])
+                ->where('request_type', '<>','Consultation')
+                ->paginate(10);
 
             return Inertia::render('Tickets',[
                 'tickets' => $tickets,
