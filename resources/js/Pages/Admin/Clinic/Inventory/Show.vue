@@ -115,7 +115,7 @@ export default {
                 this.loading['submit'] = true;
                 this.$inertia.put(route('inventory.update'), this.form, {
                     onSuccess: (page) => {
-                        this.$toast.success(this.$page.props.flash.success);
+                        // this.$toast.success(this.$page.props.flash.success);
                         this.loading['submit'] = false;
                         this.$emit('close')
                     },

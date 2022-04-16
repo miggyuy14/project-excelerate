@@ -191,7 +191,7 @@ export default {
                 // this.form.attachments = this.form.attachments.map((attachment) => attachment.name);
                 this.$inertia.post(route('ticket.store'), this.form, {
                     onSuccess: (page) => {
-                        this.$toast.success(this.$page.props.flash.success);
+                        this.$swal('Created', 'Ticket created, please wait for approval', 'success')
                         this.loading['submit'] = false;
                         this.$emit('close')
                     },

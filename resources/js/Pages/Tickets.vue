@@ -1,15 +1,14 @@
 <template>
     <Navbar>
-    <div class="px-5 bg-white">
+    <div class="px-5 bg-white ">
         <Success :message="this.$page.props.flash.success"></Success>
         <Error :message="this.$page.props.flash.error"></Error>
         <div class="container-fluid items-center justify-center px-5">
-            <h2>Requests</h2>
             <div class="d-flex justify-content-between">
                 <input class="shadow appearance-none border rounded py-2 px-3 mb-4 " id="search" type="text" placeholder="Search. . .">
             <div class="form-inline">
-                <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" @click="ticket()">Create ticket</Link>
-                <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" @click="consultation()">Create consultation</Link>
+                <!-- <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" @click="ticket()">Create ticket</Link> -->
+                <!-- <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" @click="consultation()">Create consultation</Link> -->
             </div>
             </div>
                  <datatable
@@ -63,7 +62,7 @@
 </template>
 <script>
 import Datatable from '@/components/partials/Datatable.vue'
-import Navbar from '@/Layouts/TrueNavbar'
+import Navbar from '@/Layouts/TicketsLayout'
 import Success from '@/Partials/Success.vue';
 import Error from '@/Partials/Error.vue';
 import { Link } from "@inertiajs/inertia-vue";
@@ -157,35 +156,13 @@ export default {
         //     this.$inertia.delete(`/document/bulkDelete`, this.form);
         // },
 
-        ticket(){
-            this.$modal.show(
-                Create,
-                {
-                    id: this.form.id,
-                },
-                {
-                    height: "auto",
-                },
-            )
-        },
 
-        consultation(){
-            this.$modal.show(
-                ConsultationVue,
-                {
-                    id: this.form.id,
-                },
-                {
-                    height: "auto",
-                },
-            )
-        },
 
-        show() {
+        show(id) {
             this.$modal.show(
                 Show,
                 {
-                    id: this.$page.props.tickets.data.id,
+                    id: id,
                 },
                 {
                     height: "auto",

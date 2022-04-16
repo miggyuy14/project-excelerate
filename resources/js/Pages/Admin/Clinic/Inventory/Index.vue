@@ -205,7 +205,7 @@ export default {
 
         changePage(page) {
             this.currentPage = page;
-            this.$inertia.get(route('tickets.index'), {
+            this.$inertia.get(route('clinic.inventory'), {
                 // tab: this.tab,
                 page: this.currentPage
             })

@@ -62,7 +62,7 @@ export default {
                 this.loading['submit'] = true;
                 this.$inertia.post(route('admin.blotter.store'), this.form, {
                     onSuccess: (page) => {
-                        this.$toast.success(this.$page.props.flash.success);
+                        // this.$toast.success(this.$page.props.flash.success);
                         this.loading['submit'] = false;
                         this.$emit('close')
                     },

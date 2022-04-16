@@ -120,9 +120,9 @@
                     <li class="nav-item">
                         <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.blotter')" :data="{ tab: 'blotter', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'blotter') ? 'active': 'text-gray-500 bg-gray-200'">Blotter</Link>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.events')" :data="{ tab: 'archives', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'archives') ? 'active': 'text-gray-500 bg-gray-200'">Events Management</Link>
-                    </li>
+                    </li> -->
                  </ul>
             </div>
         </div>

@@ -187,9 +187,9 @@ export default {
         '$page.props.flash': {
         handler(flash) {
             if (flash.error) {
-            this.$toast.error(flash.error);
+            // this.$toast.error(flash.error);
             } else if (flash.success) {
-            this.$toast.success(flash.success);
+            // this.$toast.success(flash.success);
             }
         },
         deep: true
