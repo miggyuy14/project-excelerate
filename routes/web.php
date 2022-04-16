@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [PagesController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.auth');
 Route::get('/register', [PagesController::class, 'register'])->name('register');
-Route::post('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'create'])->name('register.create');
 Route::get('/logout', [PagesController::class, 'logout'])->name('logout');
 Route::get('/', [PagesController::class, 'welcome'])->name('welcome');
 

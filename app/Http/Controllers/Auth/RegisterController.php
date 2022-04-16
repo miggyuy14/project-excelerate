@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,29 +64,29 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
         $user = User::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
         $profile = Profile::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'zone_id' => $data['zone'],
-            'birthday' => $data['birthday'],
-            'gender' => $data['gender'],
-            'marital_status' => $data['status'],
-            'address' => $data['address'],
-            'nationality' => $data['nationality'],
-            'religion' => $data['religion'],
-            'occupation' => $data['occupation'],
-            'household_count' => $data['household'],
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'zone_id' => $request->zone,
+            'birthday' => $request->birthday,
+            'gender' => $request->gender,
+            'marital_status' => $request->status,
+            'address' => $request->address,
+            'nationality' => $request->nationality,
+            'religion' => $request->religion,
+            'occupation' => $request->occupation,
+            'household_count' => $request->household,
         ]);
 
         $user->attachRole(1);
 
-        return $user;
+        return redirect("login")->with('error','Please wait for admin to activate your account');
     }
 }
