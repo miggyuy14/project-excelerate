@@ -49,15 +49,19 @@ class LoginController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        $user = User::where('email', $request->email)->first();
-        if($user->active == 0){
-            return redirect("login")->with('error','Please wait for admin to activate your account');
-        }else if($user->active == 2){
-            return redirect("login")->with('error','Your account has been deactivated please ask an admin to reactiavte your account');
-        }
         if (Auth::attempt($credentials)) {
-            return redirect()->route('welcome')
-                        ->withSuccess('You have Successfully loggedin');
+            $user = Auth::user();
+            if($user->active == 0){
+                Auth::logout();
+                return redirect("login")->with('error','Please wait for admin to activate your account');
+            }else if($user->active == 2){
+                Auth::logout();
+                return redirect("login")->with('error','Your account has been deactivated please ask an admin to reactiavte your account');
+            }else if($user->active == 1){
+                Auth::login($user);
+                return redirect()->route('welcome')
+                            ->withSuccess('You have Successfully loggedin');
+            }
         }
 
         return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
