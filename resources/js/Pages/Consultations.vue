@@ -17,8 +17,8 @@
 
                             <tr v-for="ticket in this.$page.props.consultations.data" :key="ticket.id">
                             <td class="border-b text-center">
-                                <Link v-if="isResident" @click="show(ticket.id)">{{ ticket.id }}</Link>
-                                <Link v-else @click="showAdmin(ticket.id)">{{ ticket.id }}</Link>
+                                <Link @click="show(ticket.id)">{{ ticket.id }}</Link>
+                                <!-- <Link v-else @click="showAdmin(ticket.id)">{{ ticket.id }}</Link> -->
                             </td>
                             <td class="border-b text-center">{{ ticket.request_type }}</td>
                             <td class="border-b text-center">{{ ticket.consultation_date | formatDate }}</td>
@@ -56,10 +56,11 @@
 </template>
 <script>
 import Datatable from '@/components/partials/Datatable.vue'
-import Navbar from '@/Layouts/ClinicLayout'
+import Navbar from '@/Layouts/TicketsLayout'
 import Success from '@/Partials/Success.vue';
 import Error from '@/Partials/Error.vue';
 import { Link } from "@inertiajs/inertia-vue";
+import Show from "@/Pages/Residents/Modals/ConsultationView.vue"
 export default {
     name: "Documents",
     components: { Datatable, Navbar, Link, Success, Error },
@@ -124,6 +125,13 @@ export default {
                 }else{
                     return false;
                 }
+            },
+            isClinic() {
+                if(this.$page.props.auth.roles.includes('nurse') || this.$page.props.auth.roles.includes('doctor')){
+                    return true;
+                }else{
+                    return false;
+                }
             }
     },
     methods: {
@@ -154,11 +162,11 @@ export default {
             )
         },
 
-        show() {
+        show(id) {
             this.$modal.show(
                 Show,
                 {
-                    id: this.$page.props.tickets.data.id,
+                    id: id,
                 },
                 {
                     height: "auto",

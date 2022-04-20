@@ -35,12 +35,15 @@ Route::get('/', [PagesController::class, 'welcome'])->name('welcome');
 
 Route::middleware(['auth'])->group(function () {
         Route::group(['prefix' => 'tickets'], function () {
+            Route::get('/clinic', [TicketController::class, 'consultations'])->name('test');
             Route::get('/', [TicketController::class, 'index'])->name('ticket.index');
             Route::get('/{id}', [TicketController::class, 'show'])->name('ticket.show');
             Route::get('/create', [TicketController::class, 'create'])->name('ticket.create');
+            Route::post('/consultations', [ConsultationController::class, 'store'])->name('clinic.consultation.store');
             Route::post('/store', [TicketController::class, 'store'])->name('ticket.store');
             Route::put('/{id}/approve', [TicketController::class, 'approve']);
             Route::put('/{id}/disapprove', [TicketController::class, 'disapprove']);
+
         });
 
         Route::middleware(['role:admin|zone_leader|staff'])->group(function() {
@@ -93,7 +96,6 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/doctors', [ClinicStaffController::class, 'doctors'])->name('clinic.doctor');
                 Route::get('/nurses', [ClinicStaffController::class, 'nurses'])->name('clinic.nurse');
 
-                Route::post('/consultations', [ConsultationController::class, 'store'])->name('clinic.consultation.store');
 
                 Route::put('/doctor/create/{id}', [ClinicStaffController::class, 'createDoctor'])->name('clinic.create.doctor');
                 Route::put('/nurse/create/{id}', [ClinicStaffController::class, 'createNurse'])->name('clinic.create.nurse');

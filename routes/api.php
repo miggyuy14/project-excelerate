@@ -54,6 +54,11 @@ Route::get('/consultations', function () {
     return $patients;
 });
 
+Route::get('/consultation/ticket/{id}', function ($id) {
+    $consultation = Consultation::with('patient')->find($id);
+    return $consultation;
+});
+
 Route::get('/doctors', function () {
     $doctor = User::whereHas('roles', function ($query) {
         $query->where('roles.name', 'doctor');

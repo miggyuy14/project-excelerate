@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consultation;
 use App\Models\RequestType;
 use App\Models\Ticket;
 use Carbon\Carbon;
@@ -26,27 +27,36 @@ class TicketController extends Controller
                 ->where('request_type', '<>','Consultation')
                 ->paginate(10);
 
-            return Inertia::render('Tickets',[
-                'tickets' => $tickets,
-            ]);
         }else if($user->hasRole('zone_leader')){
             $tickets = Ticket::with(['status', 'requestor.profile'])
                 ->where('zone_id', $user->profile[0]->zone_id)
                 ->where('request_type', '<>','Consultation')
                 ->paginate(10);
-
-            return Inertia::render('Tickets',[
-                'tickets' => $tickets,
-            ]);
         }else{
             $tickets = Ticket::with(['status', 'requestor.profile'])
                 ->where('request_type', '<>','Consultation')
                 ->paginate(10);
-
-            return Inertia::render('Tickets',[
-                'tickets' => $tickets,
-            ]);
         }
+        return Inertia::render('Tickets',[
+            'tickets' => $tickets,
+        ]);
+    }
+
+    public function consultations()
+    {
+        $user = Auth::user();
+        if($user->hasRole('resident')){
+            $consultations = Consultation::with('patient', 'status')
+                ->where('user_id', $user->id)
+                ->paginate(10);
+        }else{
+            $consultations = Consultation::with('patient', 'status')
+                ->paginate(10);
+        }
+
+        return Inertia::render('Consultations', [
+            'consultations' => $consultations
+        ]);
     }
 
     /**
@@ -165,7 +175,7 @@ class TicketController extends Controller
 
             $ticket->save();
 
-            return redirect(route('ticket.index'))->with('success', 'Ticket Approved Successfully');
+            return redirect(route('ticket.index'))->with('success', 'Ticket Disapproved');
         }
         catch (\Exception $e){
             Log::error($e);

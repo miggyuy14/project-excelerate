@@ -25,6 +25,18 @@ class ConsultationController extends Controller
         ]);
     }
 
+    public function residents()
+    {
+        $user = Auth::user();
+        $consultations = Consultation::with('patient', 'status')
+            ->where('user_id', $user->id)
+            ->paginate(10);
+
+        return Inertia::render('Consultations', [
+            'consultations' => $consultations
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

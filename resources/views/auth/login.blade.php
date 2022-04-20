@@ -90,13 +90,13 @@
         <main class="wrapper">
             <div class="inner-wrapper">
                 <div class="branding">
-                    <div class="im-logo">
+                    {{-- <div class="im-logo">
                         <img src="https://imgbsdevfs01.s3-ap-southeast-1.amazonaws.com/dna/images/logos/im-logo-black.png" alt="Ingram Logo">
                     </div>
                     <div class="gbs-logo">
                         <img src="https://imgbsdevfs01.s3-ap-southeast-1.amazonaws.com/dna/images/logos/gbs-logo-black.png" alt="Ingram GBS Logo">
                         <p class="tower">DIGITALIZATION AND APPLICATIONS</p>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <section class="login-form">

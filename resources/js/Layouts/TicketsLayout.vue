@@ -14,7 +14,7 @@
                         <Link class="nav-link" :href="route('ticket.index')" :data="{  tab: 'tickets', page: 1 }" :class="(currentTabComponent == 'tickets') ? 'active': 'text-gray-500 bg-gray-200'">Tickets</Link>
                     </li>
                     <li class="nav-item">
-                        <Link class="nav-link" :href="route('clinic.index')" :data="{  tab: 'consultation', page: 1 }" :class="(currentTabComponent == 'consultation') ? 'active': 'text-gray-500 bg-gray-200'">Consultations</Link>
+                        <Link class="nav-link" :href="route('test')" :data="{  tab: 'consultation', page: 1 }" :class="(currentTabComponent == 'consultation') ? 'active': 'text-gray-500 bg-gray-200'">Consultations</Link>
                     </li>
                  </ul>
             </div>
@@ -32,7 +32,6 @@ import Create from '@/Pages/Residents/Modals/Create.vue';
 import ConsultationVue from '@/Pages/Residents/Modals/Consultation.vue';
 export default {
     components: { Navbar, Link },
-    props: ['search', 'country', 'process', 'tower', 'department', 'team'],
 
     data() {
         return {

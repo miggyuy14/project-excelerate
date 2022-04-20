@@ -18,14 +18,14 @@
                     </div>
                     <div class="form-group">
                         <h5 for="Title">OR Number</h5>
-                            <input v-if="form.status == 'pending'" class="container-fluid" v-model="form.or_no" type="text">
+                            <input v-if="form.status == 'Pending' && !isResident" class="container-fluid" v-model="form.or_no" type="text">
                             <p v-else>{{form.ticket.or_no}}</p>
 
                         <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
                     <div class="form-group">
                         <h5 for="Title">Amount to pay</h5>
-                            <input v-if="form.status == 'pending'" class="container-fluid" v-model="form.amount" type="number">
+                            <input v-if="form.status == 'Pending' && !isResident" class="container-fluid" v-model="form.amount" type="number">
                             <p v-else>{{form.ticket.amount}}.00</p>
                         <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
@@ -44,11 +44,11 @@
                             <p>Zone {{ form.ticket.zone_id }}</p>
                     </div>
                     <div class="form-group">
-                        <h5 v-if="form.status == 'approved'" for="Team">Approved by</h5>
-                        <h5 v-if="form.status == 'disapproved'" for="Team">Declined by</h5>
+                        <h5 v-if="form.status.name == 'Approved'" for="Team">Approved by</h5>
+                        <h5 v-if="form.status.name == 'Disapproved'" for="Team">Declined by</h5>
                             <p>{{ form.approver.full_name }}</p>
                     </div>
-                    <div v-if="form.status == 'disapproved'" class="form-group">
+                    <div v-if="form.status.name == 'Disapproved'" class="form-group">
                         <h5 for="Team">Reason</h5>
                             <p>{{ form.ticket.reason }}</p>
                     </div>
@@ -56,13 +56,13 @@
 
                 <div class="d-flex mt-3 mb-3 justify-content-end">
                     <div>
-                        <button class="btn btn-warning" v-if="form.status == 'pending'" @click="disapprove()" :disabled="loading['submit']">
+                        <button class="btn btn-warning" v-if="form.status == 'Pending' && !isResident" @click="disapprove()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Disapprove</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Updating...</span>
                         </button>
 
                         <!-- <button v-else-if="(isUpserting && this.levels.length > 0) || (isUpserting && isSmallDifferences && matrixLoaded)" class="btn btn-primary" type="submit" :disabled="loading['submit']"> -->
-                            <button class="btn btn-success" v-if="form.status == 'pending'" @click="approve()" :disabled="loading['submit']">
+                            <button class="btn btn-success" v-if="form.status == 'Pending' && !isResident" @click="approve()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Approve</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
                         </button>
@@ -117,6 +117,37 @@ export default {
             // },
     //     },
     // },
+
+    computed: {
+            isAdmin() {
+                if(this.$page.props.auth.roles.includes('admin')){
+                    return true;
+                }else{
+                    return false;
+                }
+            },
+            isStaff() {
+                if(this.$page.props.auth.roles.includes('staff')){
+                    return true;
+                }else{
+                    return false;
+                }
+            },
+            isZoneLeader() {
+                if(this.$page.props.auth.roles.includes('zone_leader')){
+                    return true;
+                }else{
+                    return false;
+                }
+            },
+            isResident() {
+                if(this.$page.props.auth.roles.includes('resident')){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+    },
 
     created() {
         this.getTicketDetails();
@@ -215,6 +246,7 @@ export default {
         },
         disapprove() {
             this.$inertia.put(`/tickets/${this.id}/disapprove`);
+            this.$emit('close');
         },
 
     }

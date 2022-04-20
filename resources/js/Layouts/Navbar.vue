@@ -167,7 +167,7 @@ export default {
                 return false;
             }
         },
-        isZClinic() {
+        isClinic() {
             if(this.$page.props.auth.roles.includes('doctor') || this.$page.props.auth.roles.includes('nurse')){
                 return true;
             }else{

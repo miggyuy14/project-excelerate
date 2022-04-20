@@ -4,6 +4,7 @@
         <Success :message="this.$page.props.flash.success"></Success>
         <Error :message="this.$page.props.flash.error"></Error>
         <div class="container-fluid items-center justify-center px-5">
+         <h2>Tickets</h2>
             <div class="d-flex justify-content-between">
                 <input class="shadow appearance-none border rounded py-2 px-3 mb-4 " id="search" type="text" placeholder="Search. . .">
             <div class="form-inline">
@@ -20,8 +21,8 @@
 
                             <tr v-for="ticket in this.$page.props.tickets.data" :key="ticket.id">
                             <td class="border-b text-center">
-                                <Link v-if="isResident" @click="show(ticket.id)">{{ ticket.id }}</Link>
-                                <Link v-else @click="showAdmin(ticket.id)">{{ ticket.id }}</Link>
+                                <!-- <Link v-if="isResident" @click="show(ticket.id)">{{ ticket.id }}</Link> -->
+                                <Link @click="showAdmin(ticket.id)">{{ ticket.id }}</Link>
                             </td>
                             <td class="border-b text-center">{{ ticket.request_type }}</td>
                             <td class="border-b text-center">{{ ticket.description }}</td>

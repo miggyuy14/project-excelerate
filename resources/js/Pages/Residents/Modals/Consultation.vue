@@ -178,7 +178,7 @@ export default {
                 // this.form.attachments = this.form.attachments.map((attachment) => attachment.name);
                 this.$inertia.post(route('clinic.consultation.store'), this.form, {
                     onSuccess: (page) => {
-                        this.$toast.success(this.$page.props.flash.success);
+                        // this.$toast.success(this.$page.props.flash.success);
                         this.loading['submit'] = false;
                         this.$emit('close')
                     },
