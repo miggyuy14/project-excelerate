@@ -170,7 +170,7 @@ export default {
 
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },
@@ -182,7 +182,7 @@ export default {
 
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },
@@ -194,7 +194,7 @@ export default {
 
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },

@@ -116,4 +116,14 @@ class ConsultationController extends Controller
     {
         //
     }
+
+    public function approve($id)
+    {
+        $consultation = Consultation::find($id);
+
+        $consultation->status_id = 1;
+        $consultation->save();
+
+        return redirect()->back()->with('success', 'Consultation approved!');
+    }
 }

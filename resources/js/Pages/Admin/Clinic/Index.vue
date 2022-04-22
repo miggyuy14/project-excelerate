@@ -149,7 +149,7 @@ export default {
                     id: this.form.id,
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },
@@ -161,7 +161,7 @@ export default {
                     id: this.$page.props.tickets.data.id,
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },
@@ -173,7 +173,7 @@ export default {
                     id: id,
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },

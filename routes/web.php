@@ -89,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
             });
         });
 
-        Route::middleware(['role:admin|clinic|staff'])->group(function() {
+        Route::middleware(['role:admin|nurse|doctor|staff'])->group(function() {
             //clinic routes
             Route::group(['prefix' => 'clinic'], function () {
                 Route::get('/consultations', [ConsultationController::class, 'index'])->name('clinic.index');

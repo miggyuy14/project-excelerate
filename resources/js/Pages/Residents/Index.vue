@@ -1,12 +1,14 @@
 <template>
-    <AdminLayout>
+    <Navbar>
     <div class="px-5 bg-white">
         <Success :message="this.$page.props.flash.success"></Success>
         <Error :message="this.$page.props.flash.error"></Error>
         <div class="container-fluid items-center justify-center px-5">
-            <h2>Requests</h2>
             <div class="d-flex justify-content-between">
                 <input class="shadow appearance-none border rounded py-2 px-3 mb-4 " id="search" type="text" placeholder="Search. . .">
+            <div class="form-inline">
+                <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" @click="create()">Create ticket</Link>
+            </div>
             </div>
                  <datatable
                     :columns="columns"
@@ -15,18 +17,23 @@
                 >
                         <tbody class="">
 
-                            <tr v-for="blotter in this.$page.props.blotters.data" :key="blotter.id">
+                            <tr v-for="ticket in this.$page.props.tickets.data" :key="ticket.id">
                             <td class="border-b text-center">
-                                <Link @click="show(blotter.id)">{{ blotter.id }}</Link>
+                                <!-- <Link>{{ ticket.id }}</Link> -->
+                                <Link @click="showAdmin(ticket.id)">{{ ticket.id }}</Link>
                             </td>
-                            <td class="border-b text-center">{{ blotter.name }}</td>
-                            <td class="border-b text-center">{{ blotter.address }}</td>
-                            <td class="border-b text-center">{{ blotter.description }}</td>
-                            <td class="border-b text-center">{{ blotter.created_at | formatDate }}</td>
+                            <td class="border-b text-center">{{ ticket.request_type }}</td>
+                            <td class="border-b text-center">{{ ticket.description }}</td>
+                            <td class="border-b text-center">Zone {{ ticket.zone_id }}</td>
+                            <td class="border-b text-center">{{ ticket.or_no }}</td>
+                            <td class="border-b text-center">{{ ticket.amount }}</td>
+                            <td class="border-b text-center">{{ ticket.status.name }}</td>
+                            <td class="border-b text-center">{{ ticket.requestor.profile.full_name }}</td>
                             </tr>
                         </tbody>
                     </datatable>
             </div>
+            <!-- <div v-else class="flex justify-center"> <loader></loader> </div> -->
             <div class="container flex justify-between pb-5 px-5">
                 <p>
                     Showing {{ pagination.from }} - {{ pagination.to }} of
@@ -50,19 +57,19 @@
                 </paginate>
             </div>
     </div>
-    </AdminLayout>
+    </Navbar>
 </template>
 <script>
 import Datatable from '@/components/partials/Datatable.vue'
-import AdminLayout from '@/Layouts/AdminLayout'
+import Navbar from '@/Layouts/TrueNavbar'
 import Success from '@/Partials/Success.vue';
 import Error from '@/Partials/Error.vue';
 import { Link } from "@inertiajs/inertia-vue";
 import Create from './Modals/Create.vue';
-import Show from './Modals/Show.vue';
+import ShowAdmin from '../ZoneLeader/Modals/Show.vue';
 export default {
     name: "Documents",
-    components: { Datatable, AdminLayout, Link, Success, Error },
+    components: { Datatable, Navbar, Link, Success, Error },
     // created(){
     //     this.fetchDocuments();
     // },
@@ -71,13 +78,15 @@ export default {
         let sortOrders = {};
         let columns = [
             { name: "id", label: "ID", class: "p-4", isSortable: false },
-            { name: "Name", label: "Name", class: "p-4", isSortable: false },
-            { name: "Address", label: "Address", class: "p-4", isSortable: false,
-                isSmall: true },
+            { name: "request type", label: "Request Type", class: "p-4", isSortable: false },
             { name: "Description", label: "Description", class: "p-4", isSortable: false,
                 isSmall: true },
-            { name: "Date", label: "Date", class: "p-4", isSortable: false,
+            { name: "Zone ID", label: "Zone ID", class: "p-4", isSortable: false,
                 isSmall: true },
+            { name: "OR No", label: "OR No", class: "p-4", isSortable: false },
+            { name: "Amount", label: "Amount", class: "p-4", isSortable: false },
+            { name: "Status", label: "Status", class: "p-4", isSortable: false },
+            { name: "owner", label: "Owner", class: "p-4", isSortable: false },
         ];
 
         columns.forEach((column) => {
@@ -93,41 +102,20 @@ export default {
             sortOrders: sortOrders,
             sortKey: "id",
             dir: "asc",
-            currentPage: this.$page.props.blotters.current_page,
-            pagination: this.$page.props.blotters,
+            currentPage: this.$page.props.tickets.current_page,
+            pagination: this.$page.props.tickets,
             // query: this.search ?? "",
             // page: this.$page.props.documents.current_page,
         };
     },
     computed: {
-            isAdmin() {
-                if(this.$page.props.auth.roles.includes('admin')){
-                    return true;
-                }else{
-                    return false;
-                }
-            },
-            isStaff() {
-                if(this.$page.props.auth.roles.includes('staff')){
-                    return true;
-                }else{
-                    return false;
-                }
-            },
-            isZoneLeader() {
-                if(this.$page.props.auth.roles.includes('zone_leader')){
-                    return true;
-                }else{
-                    return false;
-                }
-            },
-            isResident() {
-                if(this.$page.props.auth.roles.includes('resident')){
-                    return true;
-                }else{
-                    return false;
-                }
+        isAdmin() {
+            if(this.$page.props.auth.roles.includes('admin')){
+                return true;
+            }else{
+                return false;
             }
+        }
     },
     methods: {
         // sortBy(key) {
@@ -145,7 +133,7 @@ export default {
         //     this.$inertia.delete(`/document/bulkDelete`, this.form);
         // },
 
-        ticket(){
+        create(){
             this.$modal.show(
                 Create,
                 {
@@ -157,9 +145,21 @@ export default {
             )
         },
 
-        show(id) {
+        show() {
             this.$modal.show(
                 Show,
+                {
+                    id: this.$page.props.tickets.data.id,
+                },
+                {
+                    height: "450px",
+                },
+            )
+        },
+
+        showAdmin(id) {
+            this.$modal.show(
+                ShowAdmin,
                 {
                     id: id,
                 },
@@ -169,13 +169,9 @@ export default {
             )
         },
 
-        blotter() {
-
-        },
-
         changePage(page) {
             this.currentPage = page;
-            this.$inertia.get(route('admin.blotter'), {
+            this.$inertia.get(route('tickets.index'), {
                 // tab: this.tab,
                 page: this.currentPage
             })

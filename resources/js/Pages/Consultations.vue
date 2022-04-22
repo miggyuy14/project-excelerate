@@ -157,7 +157,7 @@ export default {
                     id: this.form.id,
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },
@@ -169,7 +169,7 @@ export default {
                     id: id,
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },
@@ -181,7 +181,7 @@ export default {
                     id: id,
                 },
                 {
-                    height: "auto",
+                    height: "450px",
                 },
             )
         },
