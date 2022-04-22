@@ -117,12 +117,12 @@
                     <li class="nav-item">
                         <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.leaders.view')" :data="{ tab: 'leader', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'leader') ? 'active': 'text-gray-500 bg-gray-200'">Zone Leaders</Link>
                     </li>
+                    <!-- <li class="nav-item">
+                        <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.clinic.view')" :data="{ tab: 'archives', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'archives') ? 'active': 'text-gray-500 bg-gray-200'">Clinic Staff</Link>
+                    </li> -->
                     <li class="nav-item">
                         <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.blotter')" :data="{ tab: 'blotter', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'blotter') ? 'active': 'text-gray-500 bg-gray-200'">Blotter</Link>
                     </li>
-                    <!-- <li class="nav-item">
-                        <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.events')" :data="{ tab: 'archives', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'archives') ? 'active': 'text-gray-500 bg-gray-200'">Events Management</Link>
-                    </li> -->
                  </ul>
             </div>
         </div>

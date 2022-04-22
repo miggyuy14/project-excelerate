@@ -8,28 +8,17 @@
                     <div class="form-group">
                         <h5 for="Tower">Request Type</h5>
                         <p>Consultation</p>
-                        <!-- <small v-if="isSubmitted && !$v.form.towerHolder.required" class="text-danger">Tower is required</small> -->
                     </div>
 
                     <div class="form-group">
                         <h5 for="Title">Full Description</h5>
-                            <!-- <textarea class="container-fluid" v-model="form.description" type="text"></textarea> -->
                             <p>{{ form.description }}</p>
-
-                        <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
 
                     <div class="form-group">
                         <h5 for="Title">Consultation Date</h5>
                         <p>{{ form.date | formatDate }}</p>
                     </div>
-
-                    <!-- <div class="form-group col-4">
-                        <h5 for="Country">Description</h5>
-                            <v-select name="country" :options="country" label="name" v-model="form.countryHolder"></v-select> -->
-
-                        <!-- <small v-if="isSubmitted && !$v.form.countryHolder.required" class="text-danger">Country is required</small> -->
-                    <!-- </div> -->
                 </div>
                 <div class="form-row mb-3">
                 <div class="form-group col-4">

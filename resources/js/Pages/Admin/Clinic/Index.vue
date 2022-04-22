@@ -17,11 +17,12 @@
 
                             <tr v-for="ticket in this.$page.props.consultations.data" :key="ticket.id">
                             <td class="border-b text-center">
-                                <Link v-if="isResident" @click="show(ticket.id)">{{ ticket.id }}</Link>
-                                <Link v-else @click="showAdmin(ticket.id)">{{ ticket.id }}</Link>
+                                <Link @click="show(ticket.id)">{{ ticket.id }}</Link>
+                                <!-- <Link v-else @click="showAdmin(ticket.id)">{{ ticket.id }}</Link> -->
                             </td>
                             <td class="border-b text-center">{{ ticket.request_type }}</td>
                             <td class="border-b text-center">{{ ticket.consultation_date | formatDate }}</td>
+                            <td class="border-b text-center">{{ ticket.reason }}</td>
                             <td class="border-b text-center">{{ ticket.status.name }}</td>
                             <td class="border-b text-center">{{ ticket.patient.profile[0].full_name }}</td>
                             </tr>
@@ -60,6 +61,7 @@ import Navbar from '@/Layouts/ClinicLayout'
 import Success from '@/Partials/Success.vue';
 import Error from '@/Partials/Error.vue';
 import { Link } from "@inertiajs/inertia-vue";
+import Show from "@/Pages/Admin/Clinic/Modals/Show.vue"
 export default {
     name: "Documents",
     components: { Datatable, Navbar, Link, Success, Error },
@@ -73,6 +75,7 @@ export default {
             { name: "id", label: "ID", class: "p-4", isSortable: false },
             { name: "request type", label: "Request Type", class: "p-4", isSortable: false },
             { name: "Consultation Date", label: "Consultation Date", class: "p-4", isSortable: false },
+            { name: "Reason", label: "Reason", class: "p-4", isSortable: false },
             { name: "Status", label: "Status", class: "p-4", isSortable: false },
             { name: "Patient", label: "Patient", class: "p-4", isSortable: false },
         ];
@@ -154,29 +157,29 @@ export default {
             )
         },
 
-        show() {
+        show(id) {
             this.$modal.show(
                 Show,
-                {
-                    id: this.$page.props.tickets.data.id,
-                },
-                {
-                    height: "450px",
-                },
-            )
-        },
-
-        showAdmin(id) {
-            this.$modal.show(
-                ShowAdmin,
                 {
                     id: id,
                 },
                 {
-                    height: "450px",
+                    height: "auto",
                 },
             )
         },
+
+        // showAdmin(id) {
+        //     this.$modal.show(
+        //         ShowAdmin,
+        //         {
+        //             id: id,
+        //         },
+        //         {
+        //             height: "450px",
+        //         },
+        //     )
+        // },
 
         blotter() {
 

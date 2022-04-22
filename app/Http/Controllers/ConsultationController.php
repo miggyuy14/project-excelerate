@@ -121,7 +121,19 @@ class ConsultationController extends Controller
     {
         $consultation = Consultation::find($id);
 
-        $consultation->status_id = 1;
+        $consultation->status_id = 2;
+        $consultation->save();
+
+        return redirect()->back()->with('success', 'Consultation approved!');
+    }
+
+    public function reject($id,Request $request)
+    {
+        $consultation = Consultation::find($id);
+        // dd($request->reason);
+
+        $consultation->reason = $request->reason;
+        $consultation->status_id = 3;
         $consultation->save();
 
         return redirect()->back()->with('success', 'Consultation approved!');

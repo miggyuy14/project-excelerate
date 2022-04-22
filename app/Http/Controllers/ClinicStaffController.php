@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ClinicStaffController extends Controller
@@ -20,10 +21,13 @@ class ClinicStaffController extends Controller
 
     public function doctors()
     {
+        $user = Auth::user();
         $doctors = User::with('profile')
         ->whereHas('roles', function ($query) {
             $query->where('roles.name', 'doctor');
-        })->get();
+        })
+        ->where('id', '<>', $user->id)
+        ->paginate(10);
 
         return Inertia::render('Admin/Clinic/Staff/Index', [
             'data' => $doctors
@@ -32,10 +36,13 @@ class ClinicStaffController extends Controller
 
     public function nurses()
     {
+        $user = Auth::user();
         $nurses = User::with('profile')
         ->whereHas('roles', function ($query) {
             $query->where('roles.name', 'nurse');
-        })->get();
+        })
+        ->where('id', '<>', $user->id)
+        ->paginate(10);
 
         return Inertia::render('Admin/Clinic/Staff/Index', [
             'data' => $nurses

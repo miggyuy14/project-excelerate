@@ -86,6 +86,20 @@ class AdminUserManagementController extends Controller
         ]);
     }
 
+    public function clinic()
+    {
+        $data = User::with('profile')
+                ->whereHas('roles', function ($query) {
+                    $query->where('roles.name', 'nurse')
+                        ->orWhere('roles.name', 'doctor');
+                })
+                ->paginate(10);
+
+        return Inertia::render('Admin/Users/Index', [
+            'data' => $data,
+        ]);
+    }
+
     public function approve($id)
     {
         $user = User::find($id);

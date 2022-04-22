@@ -55,7 +55,7 @@ Route::get('/consultations', function () {
 });
 
 Route::get('/consultation/ticket/{id}', function ($id) {
-    $consultation = Consultation::with('patient')->find($id);
+    $consultation = Consultation::with('patient', 'status')->find($id);
     return $consultation;
 });
 

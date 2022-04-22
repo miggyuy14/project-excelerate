@@ -82,7 +82,7 @@ export default {
 
                 },
                 {
-                    height: "450px",
+                    height: "auto",
                 },
             )
         },
@@ -94,7 +94,7 @@ export default {
 
                 },
                 {
-                    height: "450px",
+                    height: "auto",
                 },
             )
         },

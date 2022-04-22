@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/users/access', [AdminUserManagementController::class, 'access'])->name('admin.users.pending.view');
                 Route::get('/officials', [AdminUserManagementController::class, 'officials'])->name('admin.officials.view');
                 Route::get('/leaders', [AdminUserManagementController::class, 'leaders'])->name('admin.leaders.view');
+                // Route::get('/clinic', [AdminUserManagementController::class, 'clinic'])->name('admin.clinic.view');
                 // Route::get('/data', [AdminDataManagementController::class, 'index'])->name('admin.data.view');
                 Route::get('/blotter', [BlotterController::class, 'index'])->name('admin.blotter');
                 Route::post('/blotter/store', [BlotterController::class, 'store'])->name('admin.blotter.store');
@@ -95,7 +96,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/consultations', [ConsultationController::class, 'index'])->name('clinic.index');
                 Route::get('/doctors', [ClinicStaffController::class, 'doctors'])->name('clinic.doctor');
                 Route::get('/nurses', [ClinicStaffController::class, 'nurses'])->name('clinic.nurse');
-
+                Route::put('/consultation/approve/{id}', [ConsultationController::class, 'approve'])->name('consultation.approve');
+                Route::put('/consultation/disapprove/{id}', [ConsultationController::class, 'reject'])->name('consultation.approve');
 
                 Route::put('/doctor/create/{id}', [ClinicStaffController::class, 'createDoctor'])->name('clinic.create.doctor');
                 Route::put('/nurse/create/{id}', [ClinicStaffController::class, 'createNurse'])->name('clinic.create.nurse');

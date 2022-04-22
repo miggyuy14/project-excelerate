@@ -9,6 +9,7 @@
             <!-- <div class="form-inline">
                 <Link  class="btn btn-primary py-2 px-3 mr-2 mb-4" v-if="isResident" @click="create()">Create ticket</Link>
             </div> -->
+            <!-- {{ datas }} -->
             </div>
                  <datatable
                     :columns="columns"
@@ -17,10 +18,9 @@
                 >
                         <tbody class="">
 
-                            <tr v-for="data in this.$page.props.data" :key="data.id">
+                            <tr v-for="data in datas" :key="data.id">
                             <td class="border-b text-center">
-                                <Link>{{ data.id }}</Link>
-                                <!-- <Link @click="showAdmin(data.id)">{{ data.id }}</Link> -->
+                                <Link @click="showAdmin(data.id)">{{ data.id }}</Link>
                             </td>
                             <td class="border-b text-center">{{ data.profile.full_name }}</td>
                             <td class="border-b text-center">{{ data.profile.address }}</td>
@@ -29,10 +29,7 @@
                             <td class="border-b text-center">{{ data.profile.gender }}</td>
                             <td class="border-b text-center">{{ data.profile.created_at | formatDate }}</td>
                             <td class="border-b text-center">
-                                <!-- <button v-if="data.active == 0 || data.active == 2 && data.user_roles.includes('resident')" class="btn btn-sm btn-primary" @click="approve(data.id)">Activate</button>
-                                <button v-if="data.active == 1 && data.user_roles.includes('resident')" class="btn btn-sm btn-danger" @click="deactivate(data.id)">Deactivate</button> -->
                                 <button v-if="tab == 'nurse' && data.user_roles.includes('nurse') || data.user_roles.includes('doctor')" @click="removeOfficial(data.id)" class="btn btn-sm btn-danger">remove</button>
-                                <!-- <button v-if="tab == 'leader' && data.user_roles.includes('staff') || data.user_roles.includes('zone_leader')" @click="removeOfficial(data.id)" class="btn btn-sm btn-danger">remove</button> -->
                             </td>
 
                             </tr>
@@ -70,7 +67,7 @@ import Datatable from '@/components/partials/Datatable.vue'
 import ClinicLayout from '@/Layouts/ClinicLayout'
 import Success from '@/Partials/Success.vue';
 import Error from '@/Partials/Error.vue';
-// import ShowAdmin from './Show.vue';
+import ShowAdmin from '@/Pages/Admin/Users/Show.vue';
 import { Link } from "@inertiajs/inertia-vue";
 export default {
     name: "Documents",
@@ -109,7 +106,7 @@ export default {
             dir: "asc",
             currentPage: this.$page.props.data.current_page,
             pagination: this.$page.props.data,
-            data: this.$page.props.data,
+            datas: this.$page.props.data.data,
 
             // query: this.search ?? "",
             // page: this.$page.props.documents.current_page,
@@ -240,17 +237,17 @@ export default {
 
         },
 
-        // showAdmin(id) {
-        //     this.$modal.show(
-        //         ShowAdmin,
-        //         {
-        //             id: id,
-        //         },
-        //         {
-        //             height: "450px",
-        //         },
-        //     )
-        // },
+        showAdmin(id) {
+            this.$modal.show(
+                ShowAdmin,
+                {
+                    id: id,
+                },
+                {
+                    height: "auto",
+                },
+            )
+        },
 
         changePage(page) {
             this.currentPage = page;

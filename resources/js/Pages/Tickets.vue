@@ -166,7 +166,7 @@ export default {
                     id: id,
                 },
                 {
-                    height: "450px",
+                    height: "auto",
                 },
             )
         },
@@ -178,7 +178,7 @@ export default {
                     id: id,
                 },
                 {
-                    height: "450px",
+                    height: "auto",
                 },
             )
         },
