@@ -81,8 +81,8 @@
         <div class="px-5 container-fluid">
             <div class="d-flex justify-content-between">
                 <h3>Clinic Dashboard</h3>
-                <button class="btn btn-primary" v-if="currentTabComponent == 'nurse' && this.$page.props.auth.roles.includes('staff') || this.$page.props.auth.roles.includes('admin')" @click="nurse()"> Add nurse </button>
-                <button class="btn btn-primary" v-if="currentTabComponent == 'doctor' && this.$page.props.auth.roles.includes('staff') || this.$page.props.auth.roles.includes('admin')" @click="doctor()"> Add doctor </button>
+                <button class="btn btn-primary" v-if="currentTabComponent == 'nurse' && !isClinic" @click="nurse()"> Add nurse </button>
+                <button class="btn btn-primary" v-if="currentTabComponent == 'doctor' && !isClinic" @click="doctor()"> Add doctor </button>
                 <button class="btn btn-primary" v-if="currentTabComponent == 'inventory'" @click="inventory()"> Add item </button>
             </div>
                 <ul class='nav nav-tabs'>
@@ -158,7 +158,14 @@ export default {
             }else{
                 return false;
             }
-        }
+        },
+        isClinic() {
+            if(this.$page.props.auth.roles.includes('doctor') || this.$page.props.auth.roles.includes('nurse')){
+                return true;
+            }else{
+                return false;
+            }
+        },
 
     },
     methods: {
