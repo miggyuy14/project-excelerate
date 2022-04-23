@@ -33,13 +33,13 @@
 
                 <div class="d-flex mt-3 mb-3 justify-content-end">
                     <div>
-                        <button class="btn btn-warning" v-if="form.status == 'Pending'" @click="disapprove()" :disabled="loading['submit']">
+                        <button class="btn btn-warning" v-if="form.status == 'Pending' && isClinic" @click="disapprove()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Disapprove</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Updating...</span>
                         </button>
 
                         <!-- <button v-else-if="(isUpserting && this.levels.length > 0) || (isUpserting && isSmallDifferences && matrixLoaded)" class="btn btn-primary" type="submit" :disabled="loading['submit']"> -->
-                            <button class="btn btn-success" v-if="form.status == 'Pending'" @click="approve()" :disabled="loading['submit']">
+                            <button class="btn btn-success" v-if="form.status == 'Pending' && isClinic" @click="approve()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Approve</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
                         </button>
@@ -82,6 +82,16 @@ export default {
                 },
 
         };
+    },
+
+    computed: {
+            isClinic() {
+            if(this.$page.props.auth.roles.includes('doctor') || this.$page.props.auth.roles.includes('nurse')){
+                return true;
+            }else{
+                return false;
+            }
+        },
     },
 
     methods: {
