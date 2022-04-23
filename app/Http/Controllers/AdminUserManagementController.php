@@ -48,9 +48,10 @@ class AdminUserManagementController extends Controller
                 ->where('active', 0)
                 ->paginate(10);
         }else if($user->hasRole('zone_leader')){
-            $data = User::with(['profile' => function ($query) use ($user) {
+            $data = User::with('profile')
+            ->whereHas('profile', function ($query) use ($user) {
                 $query->where('zone_id', $user->profile[0]->zone_id);
-            }])
+            })
             ->where('active', 0)
             ->where('id', '<>',$user->id)
             ->paginate(10);
