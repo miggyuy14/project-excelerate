@@ -72,10 +72,10 @@ export default {
                 }).then((result) => {
                 if(result.value) {
                     this.$inertia.put(`/admin/user/official/${this.form.name.id}`);
-                    this.$swal('Approved', 'You successfully approved this resident', 'success');
+                    this.$swal('Approved', 'You successfully added the official', 'success');
                     this.$emit('close');
                 } else {
-                    this.$swal('Cancelled', "The resident's access is still pending", 'info');
+                    this.$swal('Cancelled', "Nothing happened", 'info');
                     this.$emit('close');
                 }
                 });
