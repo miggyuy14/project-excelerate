@@ -29,7 +29,7 @@
                             <td class="border-b text-center">{{ data.profile.gender }}</td>
                             <td class="border-b text-center">{{ data.profile.created_at | formatDate }}</td>
                             <td class="border-b text-center">
-                                <button v-if="data.user_roles.includes('staff') || data.user_roles.includes('admin')" @click="removeOfficial(data.id)" class="btn btn-sm btn-danger">remove</button>
+                                <button v-if="!isAdmin || !isStaff" @click="removeOfficial(data.id)" class="btn btn-sm btn-danger">remove</button>
                             </td>
 
                             </tr>
