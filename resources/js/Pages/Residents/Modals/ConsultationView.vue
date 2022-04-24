@@ -19,6 +19,11 @@
                         <h5 for="Title">Consultation Date</h5>
                         <p>{{ form.date | formatDate }}</p>
                     </div>
+
+                    <div class="form-group">
+                        <h5 for="Title">Findings</h5>
+                        <p>{{ form.findings }}</p>
+                    </div>
                 </div>
                 <div class="form-row mb-3">
                 <div class="form-group col-4">
@@ -77,6 +82,7 @@ export default {
                 user_name: '',
                 request_type: '',
                 description: '',
+                findings: '',
                 date: '',
                 zone_id: '',
             },
@@ -95,6 +101,7 @@ export default {
             this.form.zone_id = response.data.zone_id;
             this.form.date = response.data.consultation_date;
             this.form.description = response.data.description;
+            this.form.findings = response.data.findings;
             console.log(response);
         },
         store() {
