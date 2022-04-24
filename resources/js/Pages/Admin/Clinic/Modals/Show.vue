@@ -24,7 +24,7 @@
                         <textarea v-if="isClinic" class="container-fluid" v-model="form.findings"></textarea>
                         <p v-else>{{ form.findings }}</p>
                     </div>
-                    <div class="form-group" v-if="form.status == 'Pending'">
+                    <div class="form-group" v-if="form.status == 'Disapprove'">
                         <h5 for="Title">Reason for rejection</h5>
                         <p>{{ form.reason }}</p>
                     </div>

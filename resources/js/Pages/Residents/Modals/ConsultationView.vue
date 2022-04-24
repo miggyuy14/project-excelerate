@@ -24,6 +24,10 @@
                         <h5 for="Title">Findings</h5>
                         <p>{{ form.findings }}</p>
                     </div>
+                    <div v-if="form.status == 'Disapprove'" class="form-group">
+                        <h5 for="Title">Reason for rejection</h5>
+                        <p>{{ form.reason }}</p>
+                    </div>
                 </div>
                 <div class="form-row mb-3">
                 <div class="form-group col-4">
@@ -84,6 +88,7 @@ export default {
                 description: '',
                 findings: '',
                 date: '',
+                status: '',
                 zone_id: '',
             },
 
@@ -100,6 +105,7 @@ export default {
             this.form.user_name = response.data.patient.profile[0].full_name;
             this.form.zone_id = response.data.patient.profile[0].zone_id;
             this.form.date = response.data.consultation_date;
+            this.form.status = response.data.status.name;
             this.form.description = response.data.description;
             this.form.findings = response.data.findings;
             console.log(response);
