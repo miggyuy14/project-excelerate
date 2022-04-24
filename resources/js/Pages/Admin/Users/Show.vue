@@ -168,8 +168,10 @@ export default {
                 if(result.value) {
                     this.$inertia.put(`/clinic/consultation/vaccine/first/${this.id}`)
                     this.$swal('Approved', 'Vaccination confirmed!', 'success')
+                    this.$emit('close');
                 } else {
                     this.$swal('Cancelled', "Nothing happened", 'info')
+                    this.$emit('close');
                 }
             });
         },
@@ -187,8 +189,10 @@ export default {
                 if(result.value) {
                     this.$inertia.put(`/clinic/consultation/vaccine/second/${this.id}`)
                     this.$swal('Approved', 'Vaccination confirmed!', 'success')
+                    this.$emit('close');
                 } else {
                     this.$swal('Cancelled', "Nothing happened", 'info')
+                    this.$emit('close');
                 }
             });
         },
@@ -206,8 +210,10 @@ export default {
                 if(result.value) {
                     this.$inertia.put(`/clinic/consultation/vaccine/booster/${this.id}`)
                     this.$swal('Approved', 'Booster confirmed!', 'success')
+                    this.$emit('close');
                 } else {
                     this.$swal('Cancelled', "Nothing happened", 'info')
+                    this.$emit('close');
                 }
             });
         },
