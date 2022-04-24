@@ -19,6 +19,10 @@
                         <h5 for="Title">Consultation Date</h5>
                         <p>{{ form.date | formatDate }}</p>
                     </div>
+                    <div class="form-group">
+                        <h5 for="Title">Findings</h5>
+                        <textarea type="text" v-model="form.findings"></textarea>
+                    </div>
                 </div>
                 <div class="form-row mb-3">
                 <div class="form-group col-4">
@@ -38,9 +42,13 @@
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Updating...</span>
                         </button>
 
-                        <!-- <button v-else-if="(isUpserting && this.levels.length > 0) || (isUpserting && isSmallDifferences && matrixLoaded)" class="btn btn-primary" type="submit" :disabled="loading['submit']"> -->
-                            <button class="btn btn-success" v-if="form.status == 'Pending' && isClinic" @click="approve()" :disabled="loading['submit']">
+                        <button class="btn btn-success" v-if="form.status == 'Pending' && isClinic" @click="approve()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Approve</span>
+                            <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
+                        </button>
+
+                        <button class="btn btn-success" v-if="isClinic" @click="update()" :disabled="loading['submit']">
+                            <span v-if="!loading['submit']">update</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
                         </button>
 
@@ -72,9 +80,16 @@ export default {
                 user_name: '',
                 request_type: '',
                 description: '',
+                findings: '',
                 date: '',
                 zone_id: '',
                 status: '',
+                vaccine: {
+                    first_dose: '',
+                    second_dose: '',
+                    booster: '',
+                    booster_count: '',
+                }
             },
 
             loading: {
@@ -101,7 +116,12 @@ export default {
             this.form.zone_id = response.data.zone_id;
             this.form.date = response.data.consultation_date;
             this.form.description = response.data.description;
-            this.form.status = response.data.status.name
+            this.form.findings = response.data.findings;
+            this.form.status = response.data.status.name;
+            this.form.vaccice.first_dose = response.data.first_dose;
+            this.form.vaccice.second_dose = response.data.second_dose;
+            this.form.vaccice.booster = response.data.booster;
+            this.form.vaccice.booster_count = response.data.booster_count;
             console.log(response);
         },
         store() {
@@ -146,6 +166,27 @@ export default {
                 } else {
             }
         },
+
+        update(){
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+                }).then((result) => {
+                if(result.value) {
+                    this.$inertia.put(`/clinic/consultation/update/${this.id}`, this.form)
+                    this.$swal('Approved', 'Vaccination confirmed!', 'success')
+                } else {
+                    this.$swal('Cancelled', "Nothing happened", 'info')
+                }
+            });
+        },
+
+
 
         submit() {
 

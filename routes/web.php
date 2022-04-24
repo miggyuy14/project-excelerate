@@ -94,10 +94,19 @@ Route::middleware(['auth'])->group(function () {
             //clinic routes
             Route::group(['prefix' => 'clinic'], function () {
                 Route::get('/consultations', [ConsultationController::class, 'index'])->name('clinic.index');
+                Route::get('/residents', [ClinicStaffController::class, 'residents'])->name('clinic.residents');
                 Route::get('/doctors', [ClinicStaffController::class, 'doctors'])->name('clinic.doctor');
                 Route::get('/nurses', [ClinicStaffController::class, 'nurses'])->name('clinic.nurse');
-                Route::put('/consultation/approve/{id}', [ConsultationController::class, 'approve'])->name('consultation.approve');
-                Route::put('/consultation/disapprove/{id}', [ConsultationController::class, 'reject'])->name('consultation.approve');
+
+                Route::group(['prefix' => 'consultation'], function () {
+                    Route::put('/vaccine/first/{id}', [ConsultationController::class, 'firstDose'])->name('consultation.vaccince.first');
+                    Route::put('/vaccine/second/{id}', [ConsultationController::class, 'secondDose'])->name('consultation.vaccince.second');
+                    Route::put('/vaccine/booster/{id}', [ConsultationController::class, 'booster'])->name('consultation.vaccince.booster');
+                    Route::put('/approve/{id}', [ConsultationController::class, 'approve'])->name('consultation.approve');
+                    Route::put('/disapprove/{id}', [ConsultationController::class, 'reject'])->name('consultation.approve');
+                    Route::put('/update/{id}', [ConsultationController::class, 'update'])->name('consultation.approve');
+                });
+
 
                 Route::put('/doctor/create/{id}', [ClinicStaffController::class, 'createDoctor'])->name('clinic.create.doctor');
                 Route::put('/nurse/create/{id}', [ClinicStaffController::class, 'createNurse'])->name('clinic.create.nurse');
