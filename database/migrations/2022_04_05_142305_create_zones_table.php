@@ -16,10 +16,8 @@ class CreateZonesTable extends Migration
         Schema::create('zones', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedInteger('leader_id')->nullable();
+            $table->bigInteger('leader_id')->nullable();
             $table->timestamps();
-
-            $table->foreign('leader_id')->references('id')->on('users');
         });
     }
 
