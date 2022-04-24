@@ -164,6 +164,7 @@ export default {
         this.getBrgy();
         this.getTickets();
         this.getBlotter();
+        this.getEvents();
     },
     computed: {
         isAdmin(){
@@ -258,9 +259,10 @@ export default {
         async getBlotter(){
             const response = await axios.get('/api/blotters');
             this.blotter = response.data;
+            console.log(blotter);
         },
 
-        async getBlotter(){
+        async getEvents(){
             const response = await axios.get('/api/events');
             this.eventsCount = response.data;
         },
