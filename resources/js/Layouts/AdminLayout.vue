@@ -259,7 +259,6 @@ export default {
         async getBlotter(){
             const response = await axios.get('/api/blotters');
             this.blotter = response.data;
-            console.log(blotter);
         },
 
         async getEvents(){
