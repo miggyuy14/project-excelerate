@@ -49,6 +49,18 @@ class ClinicStaffController extends Controller
         ]);
     }
 
+    public function residents()
+    {
+        $user = Auth::user();
+        $nurses = User::with('profile')
+        ->where('id', '<>', $user->id)
+        ->paginate(10);
+
+        return Inertia::render('Admin/Clinic/Staff/Index', [
+            'data' => $nurses
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

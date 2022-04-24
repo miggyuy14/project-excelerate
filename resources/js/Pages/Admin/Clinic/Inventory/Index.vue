@@ -155,6 +155,7 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
                 },
             )
         },
@@ -167,6 +168,7 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
                 },
             )
         },
@@ -179,6 +181,7 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
                 },
             )
         },

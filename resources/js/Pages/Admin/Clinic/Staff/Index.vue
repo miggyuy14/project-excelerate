@@ -245,6 +245,7 @@ export default {
                 },
                 {
                     height: "auto",
+                    scrollable: true,
                 },
             )
         },

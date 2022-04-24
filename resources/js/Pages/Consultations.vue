@@ -22,7 +22,7 @@
                             </td>
                             <td class="border-b text-center">{{ ticket.request_type }}</td>
                             <td class="border-b text-center">{{ ticket.consultation_date | formatDate }}</td>
-                            <td class="border-b text-center">{{ ticket.reason }}</td>
+                            <td class="border-b text-center">{{ ticket.findings }}</td>
                             <td class="border-b text-center">{{ ticket.status.name }}</td>
                             <td class="border-b text-center">{{ ticket.patient.profile[0].full_name }}</td>
                             </tr>
@@ -75,7 +75,7 @@ export default {
             { name: "id", label: "ID", class: "p-4", isSortable: false },
             { name: "request type", label: "Request Type", class: "p-4", isSortable: false },
             { name: "Consultation Date", label: "Consultation Date", class: "p-4", isSortable: false },
-            { name: "Reason", label: "Reason", class: "p-4", isSortable: false },
+            { name: "Findings", label: "Findings", class: "p-4", isSortable: false },
             { name: "Status", label: "Status", class: "p-4", isSortable: false },
             { name: "Patient", label: "Patient", class: "p-4", isSortable: false },
         ];
@@ -160,6 +160,7 @@ export default {
                 },
                 {
                     height: "auto",
+                    scrollable: true,
                 },
             )
         },
@@ -172,6 +173,7 @@ export default {
                 },
                 {
                     height: "auto",
+                    scrollable: true,
                 },
             )
         },
@@ -184,6 +186,7 @@ export default {
                 },
                 {
                     height: "auto",
+                    scrollable: true,
                 },
             )
         },
