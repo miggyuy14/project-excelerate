@@ -98,7 +98,7 @@ export default {
         async getData() {
             const response = await axios.get(`/api/consultation/ticket/${this.id}`)
             this.form.user_name = response.data.patient.profile[0].full_name;
-            this.form.zone_id = response.data.zone_id;
+            this.form.zone_id = response.data.patient.profile[0].zone_id;
             this.form.date = response.data.consultation_date;
             this.form.description = response.data.description;
             this.form.findings = response.data.findings;
