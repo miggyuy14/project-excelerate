@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -54,12 +55,13 @@ class EventsController extends Controller
                 foreach ($request->attachments as $file)
                 {
                     $events->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('image', 'public');
-                    Storage::delete('tmp/uploads/' . $file);
+                    // Storage::delete('tmp/uploads/' . $file);
                 }
             }
             return redirect()->back()->with('success', 'events created');
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (\Exception $th) {
+            Log::error($th);
+            return redirect()->back()->with('error', 'something went wrong check logs');
         }
     }
 
