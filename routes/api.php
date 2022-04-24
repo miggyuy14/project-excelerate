@@ -6,6 +6,7 @@ use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\RequestTypeController;
 use App\Http\Controllers\TicketController;
 use App\Models\Consultation;
+use App\Models\Events;
 use App\Models\Inventory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -80,6 +81,12 @@ Route::get('/inventory/{id}', function ($id) {
     $inventory = Inventory::find($id);
 
     return $inventory;
+});
+
+Route::get('/events', function() {
+    $events = Events::all()->count();
+
+    return $events;
 });
 
 Route::post('/attachment', [AttachmentController::class, 'store']);

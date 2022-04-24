@@ -83,8 +83,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Blotters</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ blotter }}</div>
+                                                Total Events</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ eventsCount }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
@@ -152,6 +152,7 @@ export default {
             brgy: '',
             tickets: '',
             blotter: '',
+            eventsCount: '',
 
             // state: {
             //     search: this.search,
@@ -236,7 +237,7 @@ export default {
 
                 },
                 {
-                    height: "auto",
+                    height: "auto ",
                     scrollable: true,
                 },
             )
@@ -257,6 +258,11 @@ export default {
         async getBlotter(){
             const response = await axios.get('/api/blotters');
             this.blotter = response.data;
+        },
+
+        async getBlotter(){
+            const response = await axios.get('/api/events');
+            this.eventsCount = response.data;
         },
     }
 }
