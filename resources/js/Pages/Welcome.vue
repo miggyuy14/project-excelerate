@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 mb-5">This System will help not only the citizens within the barangay but also the barangay and clinic it self will benefit using the system Development of Barangay Information Vaccination Rollout</p>
-                        <a class="btn btn-primary btn-xl" :href="route('ticket.index')">Get Started</a>
+                        <a class="btn btn-primary btn-xl" href="#about">Checkout our events</a>
                     </div>
                 </div>
             </div>
