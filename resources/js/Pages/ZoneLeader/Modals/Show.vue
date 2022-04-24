@@ -18,14 +18,14 @@
                     </div>
                     <div class="form-group">
                         <h5 for="Title">OR Number</h5>
-                            <input v-if="form.status == 'Pending' && !isResident" class="container-fluid" v-model="form.or_no" type="text">
+                            <input v-if="form.status == 'Pending' && !isResident && !isCLinic" class="container-fluid" v-model="form.or_no" type="text">
                             <p v-else>{{form.ticket.or_no}}</p>
 
                         <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
                     <div class="form-group">
                         <h5 for="Title">Amount to pay</h5>
-                            <input v-if="form.status == 'Pending' && !isResident" class="container-fluid" v-model="form.amount" type="number">
+                            <input v-if="form.status == 'Pending' && !isResident && !isCLinic" class="container-fluid" v-model="form.amount" type="number">
                             <p v-else>{{form.ticket.amount}}.00</p>
                         <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
