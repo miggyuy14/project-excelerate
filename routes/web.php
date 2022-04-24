@@ -88,7 +88,7 @@ Route::middleware(['auth'])->group(function () {
 
 
                 //events
-                // Route::get('/events', [EventsController::class, 'index'])->name('events.index');
+                Route::delete('/events/{id}', [EventsController::class, 'destroy'])->name('events.delete');
             });
         });
 

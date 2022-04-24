@@ -105,8 +105,11 @@ class EventsController extends Controller
      * @param  \App\Models\Events  $events
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Events $events)
+    public function destroy($id)
     {
-        //
+        $events = Events::find($id);
+        $events->delete();
+
+        return redirect()->back()->with('success', 'Event deleted');
     }
 }

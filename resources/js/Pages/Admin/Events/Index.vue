@@ -149,8 +149,23 @@ export default {
             )
         },
 
-        removeEvents(){
-
+        removeEvents(id){
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes delete it!',
+                cancelButtonText: 'No, Not now!',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+                }).then((result) => {
+                if(result.value) {
+                    this.$inertia.delete(route('events.delete', id))
+                    this.$swal('Deleted', 'Event deleted!', 'success')
+                } else {
+                    this.$swal('Cancelled', "Nothing happened", 'info')
+                }
+                });
         },
 
         changePage(page) {
