@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminUserManagementController;
 use App\Http\Controllers\Api\AdminDataController;
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\RequestTypeController;
 use App\Http\Controllers\TicketController;
 use App\Models\Consultation;
@@ -80,3 +81,5 @@ Route::get('/inventory/{id}', function ($id) {
 
     return $inventory;
 });
+
+Route::post('/attachment', [AttachmentController::class, 'store']);

@@ -103,6 +103,7 @@
                 <button class="btn btn-primary" v-if="currentTabComponent == 'blotter'" @click="Create()"> Create blotter </button>
                 <button class="btn btn-primary" v-if="currentTabComponent == 'official'" @click="official()"> Add officials </button>
                 <button class="btn btn-primary" v-if="currentTabComponent == 'leader'" @click="leader()"> Add Zone Leader </button>
+                <button class="btn btn-primary" v-if="currentTabComponent == 'events'" @click="events()"> Create Event </button>
             </div>
                 <ul class='nav nav-tabs'>
                     <li class="nav-item">
@@ -117,11 +118,11 @@
                     <li class="nav-item">
                         <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.leaders.view')" :data="{ tab: 'leader', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'leader') ? 'active': 'text-gray-500 bg-gray-200'">Zone Leaders</Link>
                     </li>
-                    <!-- <li class="nav-item">
-                        <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.clinic.view')" :data="{ tab: 'archives', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'archives') ? 'active': 'text-gray-500 bg-gray-200'">Clinic Staff</Link>
-                    </li> -->
                     <li class="nav-item">
                         <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.blotter')" :data="{ tab: 'blotter', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'blotter') ? 'active': 'text-gray-500 bg-gray-200'">Blotter</Link>
+                    </li>
+                    <li class="nav-item">
+                        <Link class="nav-link" v-if="isAdmin || isStaff" :href="route('admin.events')" :data="{ tab: 'events', is_paginated: true, page: 1 }"  :class="(currentTabComponent == 'events') ? 'active': 'text-gray-500 bg-gray-200'">Events</Link>
                     </li>
                  </ul>
             </div>
@@ -138,6 +139,7 @@ import axios from 'axios';
 import Create from '@/Pages/Admin/Blotter/Modals/Create'
 import officials from '@/Pages/Admin/CreateOfficial.vue'
 import leader from '@/Pages/Admin/CreateLeader.vue'
+import events from '@/Pages/Admin/Events/create.vue'
 export default {
     components: { Navbar, Link },
     props: ['search', 'country', 'process', 'tower', 'department', 'team'],
@@ -196,6 +198,7 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
                 },
             )
         },
@@ -208,6 +211,7 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
                 },
             )
         },
@@ -220,6 +224,20 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
+                },
+            )
+        },
+
+        events(){
+            this.$modal.show(
+                events,
+                {
+
+                },
+                {
+                    height: "auto",
+                    scrollable: true,
                 },
             )
         },

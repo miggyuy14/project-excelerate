@@ -167,6 +167,7 @@ export default {
                 },
                 {
                     height: "auto",
+                    scrollable: true,
                 },
             )
         },
@@ -179,6 +180,7 @@ export default {
                 },
                 {
                     height: "auto",
+                    scrollable: true,
                 },
             )
         },

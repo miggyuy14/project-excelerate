@@ -21,15 +21,79 @@
                 </div>
             </div>
         </header>
+        <section class="page-section bg-primary" id="about">
+            <div class="container px-4 px-lg-5">
+                <vue-flux
+                    :options="vfOptions"
+                    :images="vfImages"
+                    :transitions="vfTransitions"
+                    :captions="vfCaptions"
+                    ref="slider">
+
+                    <template v-slot:preloader>
+                        <flux-preloader />
+                    </template>
+
+                    <template v-slot:caption>
+                        <flux-caption />
+                    </template>
+
+                    <template v-slot:controls>
+                        <flux-controls />
+                    </template>
+
+                    <template v-slot:pagination>
+                        <flux-pagination />
+                    </template>
+
+                    <template v-slot:index>
+                        <flux-index />
+                    </template>
+                </vue-flux>
+            </div>
+        </section>
     </div>
 </NavBar>
 </template>
 <script>
+import {
+   VueFlux,
+   FluxCaption,
+   FluxControls,
+   FluxIndex,
+   FluxPagination,
+   FluxPreloader
+} from 'vue-flux';
 import Navbar from "@/Layouts/Navbar";
 export default {
+    created() {
+        this.$page.props.events.forEach((value, index) => {
+          this.vfImages.push(value.media[0].original_url)
+          this.vfCaptions.push(value.description);
+          console.log(this.vfImages);
+          console.log(index);
+      });
+    },
     components: {
-        Navbar
-    }
+        Navbar,
+        VueFlux,
+        FluxCaption,
+        FluxControls,
+        FluxIndex,
+        FluxPagination,
+        FluxPreloader,
+    },
+
+    data() {
+        return {
+            vfOptions: {
+               autoplay: true
+            },
+            vfImages: [],
+            vfTransitions: [ 'fade', 'cube', 'book', 'wave' ],
+            vfCaptions: [],
+         };
+        }
 }
 </script>
 

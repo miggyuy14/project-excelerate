@@ -23,6 +23,11 @@ Vue.use(VModal, {
     injectModalsContainer: true,
 });
 
+/**
+ * Dropzone
+*/
+import vue2Dropzone from 'vue2-dropzone';
+
 // import sweetalert2
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
