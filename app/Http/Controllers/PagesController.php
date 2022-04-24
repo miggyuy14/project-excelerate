@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Events;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,10 @@ class PagesController extends Controller
 {
     public function welcome()
     {
-        return Inertia::render('Welcome');
+        $events = Events::with('media')->get()->toArray();
+        return Inertia::render('Welcome', [
+            'events' =>  $events
+        ]);
     }
 
     public function login()

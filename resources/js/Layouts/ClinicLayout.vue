@@ -90,6 +90,9 @@
                         <Link class="nav-link" :href="route('clinic.index')" :data="{  tab: 'consultation', page: 1 }" :class="(currentTabComponent == 'consultation') ? 'active': 'text-gray-500 bg-gray-200'">Consultations</Link>
                     </li>
                     <li class="nav-item">
+                        <Link class="nav-link" :href="route('clinic.residents')" :data="{  tab: 'residents', page: 1 }" :class="(currentTabComponent == 'residents') ? 'active': 'text-gray-500 bg-gray-200'">Residents</Link>
+                    </li>
+                    <li class="nav-item">
                         <Link class="nav-link" :href="route('clinic.nurse')" :data="{  tab: 'nurse', page: 1 }" :class="(currentTabComponent == 'nurse') ? 'active': 'text-gray-500 bg-gray-200'">Nurses</Link>
                     </li>
                     <li class="nav-item">
@@ -178,6 +181,7 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
                 },
             )
         },
@@ -190,6 +194,7 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
                 },
             )
         },
@@ -202,6 +207,7 @@ export default {
                 },
                 {
                     height: "450px",
+                    scrollable: true,
                 },
             )
         },

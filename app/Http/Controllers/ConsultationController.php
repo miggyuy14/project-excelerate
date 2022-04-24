@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consultation;
+use App\Models\Profile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -101,9 +102,14 @@ class ConsultationController extends Controller
      * @param  \App\Models\Consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Consultation $consultation)
+    public function update($id, Request $request)
     {
-        //
+        $consultation = Consultation::find($id);
+
+        $consultation->findings = $request->findings;
+        $consultation->save();
+
+        return redirect()->back()->with('success', 'Consultation updated!');
     }
 
     /**
@@ -136,6 +142,46 @@ class ConsultationController extends Controller
         $consultation->status_id = 3;
         $consultation->save();
 
-        return redirect()->back()->with('success', 'Consultation approved!');
+        return redirect()->back()->with('success', 'Consultation rejected!');
+    }
+
+    public function firstDose($id)
+    {
+        $consultation = Profile::find($id);
+
+        $consultation->first_dose = Carbon::now();
+        $consultation->save();
+
+        return redirect()->route('clinic.residents')->with('success', 'First dose added!');
+    }
+
+    public function secondDose($id)
+    {
+        $consultation = Profile::find($id);
+
+        $consultation->second_dose = Carbon::now();
+        $consultation->save();
+
+        return redirect()->route('clinic.residents')->with('success', 'Second dose added!');
+    }
+
+    public function booster($id)
+    {
+        $consultation = Profile::find($id);
+
+        if($consultation->booster == null || $consultation->booster == ''){
+            $consultation->booster = Carbon::now();
+            $consultation->booster_count = 1;
+            $consultation->save();
+
+            return redirect()->route('clinic.residents')->with('success', 'booster added!');
+        }else {
+            $consultation->booster = Carbon::now();
+            $consultation->booster_count = $consultation->booster_count + 1;
+            $consultation->save();
+
+            return redirect()->route('clinic.residents')->with('success', 'booster updated!');
+        }
+
     }
 }

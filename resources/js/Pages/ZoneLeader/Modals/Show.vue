@@ -18,14 +18,14 @@
                     </div>
                     <div class="form-group">
                         <h5 for="Title">OR Number</h5>
-                            <input v-if="form.status == 'Pending' && !isResident" class="container-fluid" v-model="form.or_no" type="text">
+                            <input v-if="form.status == 'Pending' && !isResident && !isCLinic" class="container-fluid" v-model="form.or_no" type="text">
                             <p v-else>{{form.ticket.or_no}}</p>
 
                         <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
                     <div class="form-group">
                         <h5 for="Title">Amount to pay</h5>
-                            <input v-if="form.status == 'Pending' && !isResident" class="container-fluid" v-model="form.amount" type="number">
+                            <input v-if="form.status == 'Pending' && !isResident && !isCLinic" class="container-fluid" v-model="form.amount" type="number">
                             <p v-else>{{form.ticket.amount}}.00</p>
                         <!-- <small v-if="isSubmitted && !$v.form.titleHolder.required" class="text-danger">Title is required</small> -->
                     </div>
@@ -66,6 +66,21 @@
                             <span v-if="!loading['submit']">Approve</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
                         </button>
+
+                        <!-- <button class="btn btn-success" v-if="isClinic" @click="first_dose()" :disabled="loading['submit']">
+                            <span v-if="!loading['submit']">Add first dose</span>
+                            <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
+                        </button>
+
+                        <button class="btn btn-success" v-if="isClinic" @click="second_dose()" :disabled="loading['submit']">
+                            <span v-if="!loading['submit']">Add second dose</span>
+                            <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
+                        </button>
+
+                        <button class="btn btn-success" v-if="isClinic" @click="booster()" :disabled="loading['submit']">
+                            <span v-if="!loading['submit']">Add booster</span>
+                            <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
+                        </button> -->
 
                     </div>
                 </div>
@@ -196,57 +211,9 @@ export default {
             this.form.approver = response.data.approver.profile
             console.log(this.form.requestor);
         },
-        // dropzoneProcessing() {
-        //     this.$refs.attachments.setOption(
-        //         "url",
-        //         "/api/v1/attachment"
-        //     );
-        //     },
-
-        // sendingFile(file, xhr, formData) {
-        //     formData.append("type", "new");
-        //     },
-
-        // dropzoneSuccess(file, response) {
-        //     console.log(file);
-        //     this.form.attachments.push({
-        //         name: response.data.name,
-        //         file_name: file.name,
-        //         original_name: file.name,
-        //         file_size: response.data.file_size,
-        //     })
-        //     },
-        // removeAttachment(index, attachments) {
-        //     this.$refs.attachments.enable();
-        //     this.$toast.warning("Attachment removed");
-        //     this.form.attachments.splice(index, 1);
-        //     },
         store() {
             this.store();
         },
-        // submit() {
-        //     try {
-        //         this.isSubmitted = true;
-        //         this.loading['submit'] = true;
-        //         // if (this.$v.$invalid)
-        //         // {
-        //         //     this.$toast.error("Please check your input fields");
-        //         //     this.loading["submit"] = false;
-        //         //     return;
-        //         // }
-        //         // this.form.attachments = this.form.attachments.map((attachment) => attachment.name);
-        //         this.$inertia.post(route('ticket.approve'), this.form, {
-        //             onSuccess: (page) => {
-        //                 this.$toast.success(this.$page.props.flash.success);
-        //                 this.loading['submit'] = false;
-        //                 this.$emit('close');
-        //             },
-        //         })
-
-        //     }catch (error) {
-
-        //     }
-        // },
         approve() {
             this.$inertia.put(`/tickets/${this.id}/approve`, this.form);
             this.$emit('close');
@@ -255,6 +222,7 @@ export default {
             this.$inertia.put(`/tickets/${this.id}/disapprove`);
             this.$emit('close');
         },
+
 
     }
 };

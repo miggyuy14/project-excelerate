@@ -19,6 +19,15 @@
                         <h5 for="Title">Consultation Date</h5>
                         <p>{{ form.date | formatDate }}</p>
                     </div>
+
+                    <div class="form-group">
+                        <h5 for="Title">Findings</h5>
+                        <p>{{ form.findings }}</p>
+                    </div>
+                    <div v-if="form.status == 'Disapprove'" class="form-group">
+                        <h5 for="Title">Reason for rejection</h5>
+                        <p>{{ form.reason }}</p>
+                    </div>
                 </div>
                 <div class="form-row mb-3">
                 <div class="form-group col-4">
@@ -77,8 +86,11 @@ export default {
                 user_name: '',
                 request_type: '',
                 description: '',
+                findings: '',
                 date: '',
+                status: '',
                 zone_id: '',
+                reason: '',
             },
 
             loading: {
@@ -92,9 +104,12 @@ export default {
         async getData() {
             const response = await axios.get(`/api/consultation/ticket/${this.id}`)
             this.form.user_name = response.data.patient.profile[0].full_name;
-            this.form.zone_id = response.data.zone_id;
+            this.form.zone_id = response.data.patient.profile[0].zone_id;
             this.form.date = response.data.consultation_date;
+            this.form.status = response.data.status.name;
             this.form.description = response.data.description;
+            this.form.findings = response.data.findings;
+            this.form.reason = response.data.reason;
             console.log(response);
         },
         store() {
