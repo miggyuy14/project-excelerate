@@ -1,0 +1,18 @@
+.navbar-brand {
+    img { height: 40px; }
+
+    .gbs-logo-container {
+        border-right: 1px solid #000;
+        margin-right: 6px;
+        padding-right: 6px;
+
+        .gbs-logo-subtext {
+            font-size: .8rem;
+            margin: 0;
+        }
+
+        .gbs-logo { filter: invert(100%); }
+
+    }
+
+}

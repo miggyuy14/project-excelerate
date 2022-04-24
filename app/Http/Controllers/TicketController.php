@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consultation;
+use App\Models\RequestType;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class TicketController extends Controller
 {
@@ -14,7 +20,43 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        if($user->hasRole('resident')){
+            $tickets = Ticket::with(['status', 'requestor.profile'])
+                ->where('user_id', $user->id)
+                ->where('request_type', '<>','Consultation')
+                ->paginate(10);
+
+        }else if($user->hasRole('zone_leader')){
+            $tickets = Ticket::with(['status', 'requestor.profile'])
+                ->where('zone_id', $user->profile[0]->zone_id)
+                ->where('request_type', '<>','Consultation')
+                ->paginate(10);
+        }else{
+            $tickets = Ticket::with(['status', 'requestor.profile'])
+                ->where('request_type', '<>','Consultation')
+                ->paginate(10);
+        }
+        return Inertia::render('Tickets',[
+            'tickets' => $tickets,
+        ]);
+    }
+
+    public function consultations()
+    {
+        $user = Auth::user();
+        if($user->hasRole('resident')){
+            $consultations = Consultation::with('patient', 'status')
+                ->where('user_id', $user->id)
+                ->paginate(10);
+        }else{
+            $consultations = Consultation::with('patient', 'status')
+                ->paginate(10);
+        }
+
+        return Inertia::render('Consultations', [
+            'consultations' => $consultations
+        ]);
     }
 
     /**
@@ -24,7 +66,10 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        $type = RequestType::all();
+        return Inertia::render('Residents/Create', [
+            'types' => $type
+        ]);
     }
 
     /**
@@ -35,7 +80,22 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        try {
+            $ticket = Ticket::create([
+                'request_type' => $request->request_type['name'],
+                'description' => $request->description,
+                'user_id' => $user->id,
+                'zone_id' =>  $request->zone_id,
+                'status_id' => 1,
+            ]);
+
+            return redirect(route('ticket.index'))->with('success', 'Ticket Created Successfully');
+        }
+        catch(\Exception $e){
+            Log::error($e);
+            return redirect(route('ticket.index'))->with('error', 'There is an issue with creating a ticket please try again');
+        }
     }
 
     /**
@@ -44,9 +104,12 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function show(Ticket $ticket)
+    public function show(Request $request)
     {
-        //
+        $ticket = Ticket::with(['status', 'requestor.profile', 'approver.profile'])->find($request->id);
+        // dd($ticket);
+        return $ticket;
+
     }
 
     /**
@@ -81,5 +144,43 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+    public function approve(Request $request)
+    {
+        try{
+            $ticket = Ticket::find($request->id);
+            $ticket->or_no = $request->or_no;
+            $ticket->amount = $request->amount;
+            $ticket->approved_by = Auth::id();
+            $ticket->approved_at = Carbon::now();
+            $ticket->status_id = 2;
+
+            $ticket->save();
+
+            return redirect(route('ticket.index'))->with('success', 'Ticket Approved Successfully');
+        }
+        catch (\Exception $e){
+            Log::error($e);
+
+            return redirect(route('ticket.index'))->with('error', 'Something Went Wrong Please Contact Admin');
+        }
+    }
+
+    public function disapprove(Request $request)
+    {
+        try{
+            $ticket = Ticket::find($request->id);
+            $ticket->status_id = 3;
+
+            $ticket->save();
+
+            return redirect(route('ticket.index'))->with('success', 'Ticket Disapproved');
+        }
+        catch (\Exception $e){
+            Log::error($e);
+
+            return redirect(route('ticket.index'))->with('error', 'Something Went Wrong Please Contact Admin');
+        }
     }
 }
