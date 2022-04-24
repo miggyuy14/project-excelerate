@@ -67,7 +67,7 @@
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
                         </button>
 
-                        <button class="btn btn-success" v-if="isClinic" @click="first_dose()" :disabled="loading['submit']">
+                        <!-- <button class="btn btn-success" v-if="isClinic" @click="first_dose()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Add first dose</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
                         </button>
@@ -80,7 +80,7 @@
                         <button class="btn btn-success" v-if="isClinic" @click="booster()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Add booster</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
-                        </button>
+                        </button> -->
 
                     </div>
                 </div>

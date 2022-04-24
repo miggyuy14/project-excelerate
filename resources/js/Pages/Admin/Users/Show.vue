@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="d-flex mt-3 mb-3 justify-content-end">
-                        <!-- <button class="btn btn-success" v-if="data.profile.first_dose == null && isClinic" @click="first_dose()" :disabled="loading['submit']">
+                        <button class="btn btn-success" v-if="data.profile.first_dose == null && isClinic" @click="first_dose()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Add first dose</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
                         </button>
@@ -85,7 +85,7 @@
                         <button class="btn btn-success" v-if="data.profile.second_dose != null && isClinic" @click="booster()" :disabled="loading['submit']">
                             <span v-if="!loading['submit']">Add booster</span>
                             <span v-else><i class="fas fa-spinner fa-spin"></i> Submitting. ..</span>
-                        </button> -->
+                        </button>
                 </div>
 
             </div>
