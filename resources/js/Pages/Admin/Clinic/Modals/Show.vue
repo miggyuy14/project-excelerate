@@ -23,6 +23,10 @@
                         <h5 for="Title">Findings</h5>
                         <p>{{ form.findings }}</p>
                     </div>
+                    <div class="form-group" v-if="form.status == 'Pending'">
+                        <h5 for="Title">Reason for rejection</h5>
+                        <p>{{ form.reason }}</p>
+                    </div>
                 </div>
                 <div class="form-row mb-3">
                 <div class="form-group col-4">
