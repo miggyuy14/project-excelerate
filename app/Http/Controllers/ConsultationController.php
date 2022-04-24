@@ -162,7 +162,7 @@ class ConsultationController extends Controller
         $consultation->second_dose = Carbon::now();
         $consultation->save();
 
-        return redirect()->back()->with('success', 'Second dose added!');
+        return redirect()->route('clinic.residents')->with('success', 'Second dose added!');
     }
 
     public function booster($id)
