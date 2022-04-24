@@ -89,6 +89,7 @@ export default {
                 date: '',
                 zone_id: '',
                 status: '',
+                reason: '',
                 vaccine: {
                     first_dose: '',
                     second_dose: '',
@@ -122,6 +123,7 @@ export default {
             this.form.date = response.data.consultation_date;
             this.form.description = response.data.description;
             this.form.findings = response.data.findings;
+            this.form.reason = response.data.reason;
             this.form.status = response.data.status.name;
             this.form.vaccice.first_dose = response.data.first_dose;
             this.form.vaccice.second_dose = response.data.second_dose;

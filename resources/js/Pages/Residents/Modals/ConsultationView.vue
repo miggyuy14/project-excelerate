@@ -90,6 +90,7 @@ export default {
                 date: '',
                 status: '',
                 zone_id: '',
+                reason: '',
             },
 
             loading: {
@@ -108,6 +109,7 @@ export default {
             this.form.status = response.data.status.name;
             this.form.description = response.data.description;
             this.form.findings = response.data.findings;
+            this.form.reason = response.data.reason;
             console.log(response);
         },
         store() {
