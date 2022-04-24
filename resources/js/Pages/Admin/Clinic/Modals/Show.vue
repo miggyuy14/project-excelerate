@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <h5 for="Title">Findings</h5>
-                        <p>{{ form.findings }}</p>
+                        <textarea class="container-fluid" v-model="form.findings"></textarea>
                     </div>
                     <div class="form-group" v-if="form.status == 'Pending'">
                         <h5 for="Title">Reason for rejection</h5>
