@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <h5 for="Title">Findings</h5>
-                        <textarea type="text" v-model="form.findings"></textarea>
+                        <p>{{ form.findings }}</p>
                     </div>
                 </div>
                 <div class="form-row mb-3">
