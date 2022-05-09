@@ -18,6 +18,9 @@ class UserRoleSeeder extends Seeder
         $user->attachRole(3);
 
         $user = User::find(2);
-        $user->attachRole(2);
+        $user->attachRole(6);
+
+        $user = User::find(3);
+        $user->attachRole(5);
     }
 }

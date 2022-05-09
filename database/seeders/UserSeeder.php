@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'active' => 1,
         ]);
         Profile::create([
-            'first_name' => 'Barangay',
+            'first_name' => 'Clinic',
             'last_name' => 'Admin',
             'zone_id' => 1,
             'gender' => 'N/A',
@@ -36,13 +36,13 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'email' => 'leader@gmail.com',
+            'email' => 'nurse@gmail.com',
             'password' => bcrypt('12345678'),
             'active' => 1,
         ]);
         Profile::create([
-            'first_name' => 'Zone',
-            'last_name' => 'Leader',
+            'first_name' => 'Clinic',
+            'last_name' => 'Nurse',
             'zone_id' => 1,
             'gender' => 'N/A',
             'marital_status' => 'N/A',
@@ -55,13 +55,13 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'email' => 'resident@gmail.com',
+            'email' => 'doctor@gmail.com',
             'password' => bcrypt('12345678'),
             'active' => 1,
         ]);
         Profile::create([
-            'first_name' => 'Barangay',
-            'last_name' => 'Resident',
+            'first_name' => 'Clinic',
+            'last_name' => 'Doctor',
             'zone_id' => 1,
             'gender' => 'N/A',
             'marital_status' => 'N/A',

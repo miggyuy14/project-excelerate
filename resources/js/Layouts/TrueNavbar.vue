@@ -18,9 +18,9 @@
                     <li class="nav-item" v-if="$page.props.auth.user !== null">
                     <Link class="nav-link" aria-current="page" :href="route('ticket.index')">Requests</Link>
                     </li>
-                    <li class="nav-item" v-if="$page.props.auth.user !== null && !isResident && !isClinic">
+                    <!-- <li class="nav-item" v-if="$page.props.auth.user !== null && !isResident && !isClinic">
                     <Link class="nav-link" aria-current="page" :href="route('admin.users.view')" :data="{  tab: 'resident', page: 1 }">Admin</Link>
-                    </li>
+                    </li> -->
                     <li class="nav-item" v-if="$page.props.auth.user !== null && isAdmin || isStaff || isClinic">
                     <Link class="nav-link" aria-current="page" :href="route('clinic.index')" :data="{  tab: 'consultation', page: 1 }">Clinic</Link>
                     </li>

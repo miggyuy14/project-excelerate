@@ -8,7 +8,7 @@
 
         <!-- Masthead-->
         <header class="masthead" >
-            <div class="container px-4 px-lg-5 h-100">
+            <!-- <div class="container px-4 px-lg-5 h-100">
                 <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-8 align-self-end">
                         <h1 class="text-white font-weight-bold">Development of Barangay Information Vaccination Rollout</h1>
@@ -19,9 +19,14 @@
                         <a class="btn btn-primary btn-xl" href="#about">Checkout our events</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <center>
+                <h1>
+                    Welcome to Clinic system
+                </h1>
+            </center>
         </header>
-        <section class="page-section bg-primary" id="about">
+        <!-- <section class="page-section bg-primary" id="about">
             <div class="container px-4 px-lg-5">
                 <vue-flux
                     :options="vfOptions"
@@ -51,7 +56,7 @@
                     </template>
                 </vue-flux>
             </div>
-        </section>
+        </section> -->
     </div>
 </NavBar>
 </template>
