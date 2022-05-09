@@ -21,7 +21,7 @@
                 </div>
             </div> -->
             <center>
-                <h1>
+                <h1 class="text-white">
                     Welcome to Clinic system
                 </h1>
             </center>

@@ -5,7 +5,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                Barangay San Isidro
+                Clinic System
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
                     <a class="nav-link" :href="route('welcome')">Home</a>
                     </li>
                     <li class="nav-item" v-if="$page.props.auth.user !== null">
-                    <Link class="nav-link" aria-current="page" :href="route('ticket.index')">Requests</Link>
+                    <Link class="nav-link" aria-current="page" :href="route('test')">Requests</Link>
                     </li>
                     <!-- <li class="nav-item" v-if="$page.props.auth.user !== null && !isResident && !isClinic">
                     <Link class="nav-link" aria-current="page" :href="route('admin.users.view')" :data="{  tab: 'resident', page: 1 }">Admin</Link>

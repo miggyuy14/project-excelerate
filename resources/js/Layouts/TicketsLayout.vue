@@ -10,9 +10,9 @@
                 <!-- <button class="btn btn-primary" v-if="currentTabComponent == 'inventory'" @click="inventory()"> Add item </button> -->
             </div>
                 <ul class='nav nav-tabs'>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <Link class="nav-link" :href="route('ticket.index')" :data="{  tab: 'tickets', page: 1 }" :class="(currentTabComponent == 'tickets') ? 'active': 'text-gray-500 bg-gray-200'">Tickets</Link>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <Link class="nav-link" :href="route('test')" :data="{  tab: 'consultation', page: 1 }" :class="(currentTabComponent == 'consultation') ? 'active': 'text-gray-500 bg-gray-200'">Consultations</Link>
                     </li>
@@ -35,7 +35,7 @@ export default {
 
     data() {
         return {
-            currentTabComponent: new URL(location.href).searchParams.get('tab') ?? 'tickets',
+            currentTabComponent: new URL(location.href).searchParams.get('tab') ?? 'consultation',
 
             residents: '',
             doctors: '',
