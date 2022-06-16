@@ -6,7 +6,7 @@
 ----
 ## Developers
 
-**Engelbert Maluyo**
+**Miguel Sebastian Uy**
 
 ---
 
